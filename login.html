@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>司丹专属财务系统</title>
+    <link rel="stylesheet" href="/css/login.css">
+</head>
+<body>
+    <div class="main">
+        <div class="login">
+            <div class="layui-card">
+                <div class="layui-card-header">账号登录</div>
+                <div class="layui-card-body">
+                    <div class="layui-row">
+                        <div class="layui-col-md12">
+                            <input type="text" autocomplete="off" class="layui-input" placeholder="账号" id="account">
+                        </div>
+                    </div>
+                    <div class="layui-row">
+                        <div class="layui-col-md12">
+                            <input type="password" autocomplete="off" class="layui-input" placeholder="密码" id="password">
+                        </div>
+                    </div>
+                    <div class="layui-row">
+                        <div class="layui-col-md12">
+                            <button class="layui-btn" id="submit" >登录</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+<script src="/js/jquery-3.4.1.min.js"></script>
+<script src="/layui/layui.js"></script>
+<script>
+    layui.use(['layer'],function(){
+        var layer = layui.layer;
+
+        $('#submit').click(function(){
+            $.ajax({
+                url:'http://192.168.6.237:8888/sidan/finance/login',
+                type:'post',
+                data:{
+                    account:$('#account').val(),
+                    password:$('#password').val()
+                },
+                dataType:'json',
+                success:function(json){
+                    console.log(json);
+                    if(json.code == 0){
+                        window.location.href = 'index.html';
+                    }else{
+                        layer.msg(json.msg);
+                    }
+                }
+            })
+        });
+
+     });
+</script>
+</html>

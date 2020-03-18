@@ -1,0 +1,73 @@
+@import url(common/common.css);
+@import url(common/margin.css);
+@import url(card.css);
+.container {
+  width: 1170px;
+  margin: 0 auto;
+}
+body {
+  background-color: #fafafa;
+}
+header {
+  width: 100%;
+  background-color: #3f3f3f;
+  box-shadow: 0 0 5px rgba(200, 200, 200, 0.3);
+}
+header .navbar {
+  display: flex;
+  padding: 1.5rem 0;
+  align-items: center;
+}
+header .navbar .logo {
+  font-size: medium;
+  padding: 0.8rem 0.8rem;
+  border-radius: 2px;
+  color: #fff;
+  background: #585858;
+}
+header .navbar ul {
+  display: flex;
+  margin-left: 5rem;
+}
+header .navbar ul li {
+  margin: 0 1rem;
+}
+header .navbar ul li a {
+  color: #fff;
+}
+header .navbar ul li a:hover {
+  color: #409bf0;
+}
+.main {
+  display: flex;
+  justify-content: space-between;
+}
+.main aside {
+  display: flex;
+  width: 190px;
+  height: 850px;
+  font-size: 15px;
+  border-radius: 2px;
+  background-color: #fff;
+  box-shadow: 0 0 5px rgba(200, 200, 200, 0.3);
+}
+.main aside ul {
+  margin: 1.5rem 3.5rem;
+}
+.main aside ul li {
+  margin: 1.5rem 0;
+}
+.main aside ul li a {
+  color: #555;
+}
+.main aside ul li a:hover {
+  color: #409bf0;
+}
+.main .content {
+  display: flex;
+  width: 970px;
+  height: 850px;
+  border-radius: 2px;
+  background-color: #fff;
+  box-shadow: 0 0 5px rgba(200, 200, 200, 0.3);
+}
