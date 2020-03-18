@@ -2,7 +2,7 @@
 @import url(common/margin.css);
 @import url(card.css);
 .container {
-  width: 1170px;
+  width: 1600px;
   margin: 0 auto;
 }
 body {
@@ -10,7 +10,7 @@ body {
 }
 header {
   width: 100%;
-  background-color: #3f3f3f;
+  background: linear-gradient(to right, #1d1d1d, #3f3f3f);
   box-shadow: 0 0 5px rgba(200, 200, 200, 0.3);
 }
 header .navbar {
@@ -23,7 +23,7 @@ header .navbar .logo {
   padding: 0.8rem 0.8rem;
   border-radius: 2px;
   color: #fff;
-  background: #585858;
+  background: rgba(255, 255, 255, 0.1);
 }
 header .navbar ul {
   display: flex;
@@ -35,7 +35,7 @@ header .navbar ul li {
   cursor: pointer;
 }
 header .navbar ul li:hover {
-  color: #409bf0;
+  color: #13a3e9;
 }
 .main {
   display: flex;
@@ -59,16 +59,16 @@ header .navbar ul li:hover {
   cursor: pointer;
 }
 .main aside ul li:hover {
-  color: #409bf0;
+  color: #13a3e9;
 }
 .main .content {
   display: flex;
-  width: 970px;
+  width: 1400px;
   height: 850px;
   border-radius: 2px;
   background-color: #fff;
   box-shadow: 0 0 5px rgba(200, 200, 200, 0.3);
 }
 .focus {
-  color: #409bf0 !important;
+  color: #13a3e9 !important;
 }
