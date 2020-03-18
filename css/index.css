@@ -31,11 +31,10 @@ header .navbar ul {
 }
 header .navbar ul li {
   margin: 0 1rem;
-}
-header .navbar ul li a {
   color: #fff;
+  cursor: pointer;
 }
-header .navbar ul li a:hover {
+header .navbar ul li:hover {
   color: #409bf0;
 }
 .main {
@@ -56,11 +55,10 @@ header .navbar ul li a:hover {
 }
 .main aside ul li {
   margin: 1.5rem 0;
-}
-.main aside ul li a {
   color: #555;
+  cursor: pointer;
 }
-.main aside ul li a:hover {
+.main aside ul li:hover {
   color: #409bf0;
 }
 .main .content {
@@ -70,4 +68,7 @@ header .navbar ul li a:hover {
   border-radius: 2px;
   background-color: #fff;
   box-shadow: 0 0 5px rgba(200, 200, 200, 0.3);
+}
+.focus {
+  color: #409bf0 !important;
 }

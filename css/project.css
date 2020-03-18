@@ -1,0 +1,5 @@
+/* @import url(common/common.css); */
+@import url(../layui/css/layui.css);
+body {
+  padding: 1rem 1rem;
+}

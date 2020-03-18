@@ -12,10 +12,10 @@
             <div class="navbar">
                 <a href="" class="logo">司丹财务管理系统</a>
                 <ul>
-                    <li><a href="" >数据中心</a></li>
-                    <li><a href="" >项目管理</a></li>
-                    <li><a href="" >人员管理</a></li>
-                    <li><a href="" >材料管理</a></li>
+                    <li class="focus" id="data">数据中心</li>
+                    <li id="project">项目管理</li>
+                    <li id="employee">人员管理</li>
+                    <li id="material">材料管理</li>
                 </ul>
             </div>
         </div>
@@ -25,21 +25,75 @@
 
     <div class="container main">
 
-        <aside>
+        <aside id="aside-nav">
             <ul>
-                <li><a href="">一天数据</a></li>
-                <li><a href="">一周数据</a></li>
-                <li><a href="">一月数据</a></li>
-                <li><a href="">一年数据</a></li>
-                <li><a href="">全部数据</a></li>
+                <li>一天数据</li>
+                <li>一周数据</li>
+                <li>一月数据</li>
+                <li>一年数据</li>
+                <li>全部数据</li>
             </ul>
         </aside>
 
-        <div class="content">
+        <div class="content" id="content">
+
+            <iframe src="/html/project.html" id="iframe" height="100%" width="100%" frameborder="0" scrolling="auto"></iframe>
 
         </div>
 
     </div>
 
 </body>
+<script src="/js/jquery-3.4.1.min.js"></script>
+<script>
+
+    $('.navbar li').click(function(){
+        $(this).parent().children().removeClass('focus');
+        $(this).addClass('focus');
+        render(this);
+    });
+
+
+    //渲染
+    function render(_this){
+        var id = $(_this).attr('id');
+        renderNav(id);
+        renderCon(_this);
+    }
+
+    //侧边导航
+    function renderNav(id){
+        var html = '';
+        if(id == 'data'){
+            html = ['<ul>',
+                    '	<li>一天数据</li>',
+                    '	<li>一周数据</li>',
+                    '	<li>一月数据</li>',
+                    '	<li>一年数据</li>',
+                    '	<li>全部数据</li>',
+                    '</ul>'].join("");
+        }else if(id == 'project'){
+            html = ['<ul>',
+                    '	<li class="focus">项目列表</li>',
+                    '	<li>项目录入</li>',
+                    '</ul>'].join("");
+        }else if(id == 'employee'){
+            html = ['<ul>',
+                    '	<li>员工录入</li>',
+                    '</ul>'].join("");
+        }else if(id == 'material'){
+            html = ['<ul>',
+                    '	<li>材料录入</li>',
+                    '</ul>'].join("");
+        }
+        
+        $('#aside-nav').html(html);
+    }
+
+    //主内容
+    function renderCon(_this){
+
+    }
+
+</script>
 </html>
