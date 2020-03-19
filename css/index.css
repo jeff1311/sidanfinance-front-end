@@ -15,7 +15,7 @@ header {
 }
 header .navbar {
   display: flex;
-  padding: 1.5rem 0;
+  padding: 1rem 0;
   align-items: center;
 }
 header .navbar .logo {
@@ -43,7 +43,7 @@ header .navbar ul li:hover {
 }
 .main aside {
   display: flex;
-  width: 190px;
+  width: 150px;
   height: 850px;
   font-size: 15px;
   border-radius: 2px;
@@ -51,7 +51,7 @@ header .navbar ul li:hover {
   box-shadow: 0 0 5px rgba(200, 200, 200, 0.3);
 }
 .main aside ul {
-  margin: 1.5rem 3.5rem;
+  margin: 1rem 2rem;
 }
 .main aside ul li {
   margin: 1.5rem 0;
@@ -63,7 +63,7 @@ header .navbar ul li:hover {
 }
 .main .content {
   display: flex;
-  width: 1400px;
+  width: 1440px;
   height: 850px;
   border-radius: 2px;
   background-color: #fff;

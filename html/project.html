@@ -22,7 +22,7 @@
 </body>
 <script src="/layui/layui.js"></script>
 <script type="text/html" id="actBar">
-    <a class="layui-btn layui-btn-xs" lay-event="edit">明细</a>
+    <a class="layui-btn layui-btn-xs" href="https://www.baidu.com">明细</a>
     <!-- <a class="layui-btn layui-btn-danger layui-btn-xs" lay-event="del">删除</a> -->
 </script>
 <script>
@@ -34,15 +34,16 @@
         table.render({
             elem: '#table',
             height: 750,
-            url: 'http://192.168.0.103:8888/sidan/finance/project/list', //数据接口
+            // url: 'http://192.168.0.103:8888/sidan/finance/project/list', //数据接口
+            url: 'http://192.168.6.237:8888/sidan/finance/project/list', //数据接口
             page: true, //开启分页
             cols: [
                 [//表头
                     {field: 'name', title: '项目名称', width:200},
                     {field: 'no', title: '项目编号', width:110, sort: true},
                     // {field: 'contractNo', title: '合同编号', width:110, sort: true},
-                    {field: 'a', title: '甲方名称', width:175},
-                    {field: 'b', title: '甲方集团名称', width: 175},
+                    {field: 'a', title: '甲方名称', width:195},
+                    {field: 'b', title: '甲方集团名称', width: 195},
                     {field: 'contractSignDate', title: '合同签订时间', width: 130, sort: true, templet:'<div>{{ layui.util.toDateString(d.contractSignDate, "yyyy-MM-dd") }}</div>'},
                     {field: 'startDate', title: '项目开工时间', width: 130, sort: true, templet:'<div>{{ layui.util.toDateString(d.startDate, "yyyy-MM-dd") }}</div>'},
                     {field: 'endDate', title: '项目竣工时间', width: 130, sort: true, templet:'<div>{{ layui.util.toDateString(d.endDate, "yyyy-MM-dd") }}</div>'},
