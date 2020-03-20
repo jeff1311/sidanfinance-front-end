@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>项目管理</title>
+    <link rel="stylesheet" href="/layui/css/layui.css">
+    <link rel="stylesheet" href="/css/common/margin.css">
+</head>
+<body>
+    
+    <form class="layui-form" action="http://192.168.6.237:8888/sidan/finance/project/add" method="POST" style="padding-top:20px;padding-right:40px;">
+        <div class="layui-form-item">
+            <label class="layui-form-label">项目名称</label>
+            <div class="layui-input-block">
+            <input type="text" name="projectName" required  lay-verify="required" placeholder="请输入标题" autocomplete="off" class="layui-input">
+            </div>
+        </div>
+        <div class="layui-form-item">
+            <label class="layui-form-label">项目编号</label>
+            <div class="layui-input-inline">
+                <input type="text" name="projectNo" required lay-verify="required" placeholder="请输入编号" autocomplete="off" class="layui-input">
+            </div>
+            <!-- <div class="layui-form-mid layui-word-aux">辅助文字</div> -->
+        </div>
+        <div class="layui-form-item">
+            <label class="layui-form-label">合同总价</label>
+            <div class="layui-input-inline">
+            <input type="number" name="totalPrice" required  lay-verify="required" placeholder="请输入价格" autocomplete="off" class="layui-input">
+            </div>
+        </div>
+        <div class="layui-form-item">
+            <label class="layui-form-label">甲方公司</label>
+            <div class="layui-col-xs7" style="width: 274px;">
+                <select name="companyId" lay-verify="required">
+                    <option value=""></option>
+                    <option value="0">北京</option>
+                    <option value="1">上海</option>
+                    <option value="2">广州</option>
+                    <option value="3">深圳</option>
+                    <option value="4">杭州</option>
+                </select>
+            </div>
+            <div class="layui-col-xs1 ml-1">
+                <button type="button" class="layui-btn" id="add-p">
+                    <i class="layui-icon">&#xe608;</i>
+                </button>
+            </div>
+        </div>
+        <div class="layui-form-item">
+            <label class="layui-form-label">签订时间</label>
+            <div class="layui-input-block" style="width:274px;">
+                <input type="text" name="signDate" class="layui-input" autocomplete="off" id="sign-date">
+            </div>
+        </div>
+        <div class="layui-form-item">
+            <label class="layui-form-label">开工时间</label>
+            <div class="layui-input-block" style="width:274px;">
+                <input type="text" name="startDate" class="layui-input" autocomplete="off" id="start-date">
+            </div>
+        </div>
+        <div class="layui-form-item">
+            <label class="layui-form-label">竣工时间</label>
+            <div class="layui-input-block" style="width:274px;">
+                <input type="text" name="endDate" class="layui-input" autocomplete="off" id="end-date">
+            </div>
+        </div>
+        
+        <div class="layui-form-item">
+            <div class="layui-input-block">
+            <button class="layui-btn" lay-submit lay-filter="formDemo">立即提交</button>
+            <button type="reset" class="layui-btn layui-btn-primary">重置</button>
+            </div>
+        </div>
+    </form>
+
+</body>
+<script src="/js/jquery-3.4.1.min.js"></script>
+<script src="/layui/layui.js"></script>
+<script>
+    layui.use(['layer','form','table','laydate'], function(){
+        var layer = layui.layer;
+        var form = layui.form;
+        var table = layui.table;
+        var laydate = layui.laydate;
+        
+
+        laydate.render({
+            elem: '#sign-date',
+            trigger: 'click'//呼出事件改成click
+        });
+        laydate.render({
+            elem: '#start-date',
+            trigger: 'click'//呼出事件改成click
+        });
+        laydate.render({
+            elem: '#end-date',
+            trigger: 'click'//呼出事件改成click
+        });
+
+    });
+</script>
+</html>

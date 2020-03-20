@@ -10,72 +10,125 @@
 
     <div class="layui-row">
         <div class="layui-col-md3 mr-1">
-            <input type="text" autocomplete="off" class="layui-input" placeholder="项目名称" id="account">
+            <input type="text" autocomplete="off" class="layui-input" placeholder="项目名称" id="projectName">
         </div>
-        <div class="layui-col-md2">
-            <button class="layui-btn" id="submit">查询</button>
+        <!-- <div class="layui-col-md2 mr-1 search-date">
+            <input type="text" class="layui-input" id="searchDate">
+        </div> -->
+        <div class="layui-col-md1">
+            <button class="layui-btn layui-btn-primary" id="search">查询</button>
         </div>
+        <button type="button" class="layui-btn add-p" id="add-p">
+            <i class="layui-icon">&#xe608;</i> 添加项目
+        </button>
     </div>
 
     <table id="table" lay-filter="test"></table>
 
 </body>
+<script src="/js/jquery-3.4.1.min.js"></script>
 <script src="/layui/layui.js"></script>
+<script type="text/html" id="feeBar">
+    <a class="layui-btn layui-btn-xs btn-blue" href="https://www.baidu.com">明细</a>
+</script>
 <script type="text/html" id="actBar">
-    <a class="layui-btn layui-btn-xs" href="https://www.baidu.com">明细</a>
-    <!-- <a class="layui-btn layui-btn-danger layui-btn-xs" lay-event="del">删除</a> -->
+    <a class="layui-btn layui-btn-xs" lay-event="edit">编辑</a>
+    <a class="layui-btn layui-btn-danger layui-btn-xs" lay-event="del">删除</a>
+</script>
+<script type="text/html" id="add-p-html">
+    <form class="layui-form" action="">
+        <div class="layui-form-item">
+            <label class="layui-form-label">输入框</label>
+            <div class="layui-input-block">
+            <input type="text" name="title" required  lay-verify="required" placeholder="请输入标题" autocomplete="off" class="layui-input">
+            </div>
+        </div>
+        <div class="layui-form-item">
+            <label class="layui-form-label">密码框</label>
+            <div class="layui-input-inline">
+            <input type="password" name="password" required lay-verify="required" placeholder="请输入密码" autocomplete="off" class="layui-input">
+            </div>
+            <div class="layui-form-mid layui-word-aux">辅助文字</div>
+        </div>
+        <div class="layui-form-item">
+            <label class="layui-form-label">选择框</label>
+            <div class="layui-input-block">
+            <select name="city" lay-verify="required">
+                <option value=""></option>
+                <option value="0">北京</option>
+                <option value="1">上海</option>
+                <option value="2">广州</option>
+                <option value="3">深圳</option>
+                <option value="4">杭州</option>
+            </select>
+            </div>
+        </div>
+        <div class="layui-form-item">
+            <div class="layui-input-block">
+            <button class="layui-btn" lay-submit lay-filter="formDemo">立即提交</button>
+            <button type="reset" class="layui-btn layui-btn-primary">重置</button>
+            </div>
+        </div>
+    </form>
 </script>
 <script>
-    layui.use(['form','table'], function(){
-
+    layui.use(['layer','form','table'], function(){
+        var layer = layui.layer;
         var form = layui.form;
         var table = layui.table;
+        // var laydate = layui.laydate;
+        // laydate.render({
+        //     elem: '#searchDate'
+        // });
 
-        table.render({
-            elem: '#table',
-            height: 750,
-            // url: 'http://192.168.0.103:8888/sidan/finance/project/list', //数据接口
-            url: 'http://192.168.6.237:8888/sidan/finance/project/list', //数据接口
-            page: true, //开启分页
-            cols: [
-                [//表头
-                    {field: 'name', title: '项目名称', width:200},
-                    {field: 'no', title: '项目编号', width:110, sort: true},
-                    // {field: 'contractNo', title: '合同编号', width:110, sort: true},
-                    {field: 'a', title: '甲方名称', width:195},
-                    {field: 'b', title: '甲方集团名称', width: 195},
-                    {field: 'contractSignDate', title: '合同签订时间', width: 130, sort: true, templet:'<div>{{ layui.util.toDateString(d.contractSignDate, "yyyy-MM-dd") }}</div>'},
-                    {field: 'startDate', title: '项目开工时间', width: 130, sort: true, templet:'<div>{{ layui.util.toDateString(d.startDate, "yyyy-MM-dd") }}</div>'},
-                    {field: 'endDate', title: '项目竣工时间', width: 130, sort: true, templet:'<div>{{ layui.util.toDateString(d.endDate, "yyyy-MM-dd") }}</div>'},
-                    {field: 'months', title: '历时（月）', width: 110, sort: true},
-                    {field: 'totalPrice', title: '合同总价', width: 110, sort: true},
-                    {fixed: 'right', title:'成本', toolbar: '#actBar', width:89}
-                ]   
-            ]
-        });
+        renderTable();
+
+        function renderTable(){
+            table.render({
+                elem: '#table',
+                height: 750,
+                // url: 'http://192.168.0.103:8888/sidan/finance/project/list', //数据接口
+                url: 'http://192.168.6.237:8888/sidan/finance/project/list', //数据接口
+                page: true, //开启分页
+                cols: [
+                    [//表头
+                        {field: 'name', title: '项目名称', width:200},
+                        {field: 'no', title: '项目编号', width:100, sort: true},
+                        // {field: 'contractNo', title: '合同编号', width:110, sort: true},
+                        {field: 'companyName', title: '甲方名称', width:170},
+                        {field: 'groupName', title: '甲方集团名称', width: 170},
+                        {field: 'contractSignDate', title: '合同签订时间', width: 120, sort: true, templet:'<div>{{ layui.util.toDateString(d.contractSignDate, "yyyy-MM-dd") }}</div>'},
+                        {field: 'startDate', title: '项目开工时间', width: 120, sort: true, templet:'<div>{{ layui.util.toDateString(d.startDate, "yyyy-MM-dd") }}</div>'},
+                        {field: 'endDate', title: '项目竣工时间', width: 120, sort: true, templet:'<div>{{ layui.util.toDateString(d.endDate, "yyyy-MM-dd") }}</div>'},
+                        {field: 'months', title: '历时（月）', width: 110, sort: true},
+                        {field: 'totalPrice', title: '￥合同总价', width: 110, sort: true},
+                        {fixed: 'right', title:'成本', toolbar: '#feeBar', width:65},
+                        {fixed: 'right', title:'操作', toolbar: '#actBar', width:113}
+                    ]   
+                ],
+                where:{
+                    projectName: $('#projectName').val(),
+                    startDate: $('#searchDate').val()
+                }
+            });
+        }
       
-        //监听事件
-        table.on('toolbar(test)', function(obj){
-            console.log(obj);
-            var checkStatus = table.checkStatus(obj.config.id);
-            switch(obj.event){
-                case 'add':
-                layer.msg('添加');
-                break;
-                case 'delete':
-                layer.msg('删除');
-                break;
-                case 'update':
-                layer.msg('编辑');
-                break;
-            };
+        $('#search').on('click',function(){
+            renderTable();
+        });
+        
+        $('#add-p').on('click',function(){
+            parent.layer.open({
+                type: 2,
+                title: '添加项目',
+                shadeClose: true,
+                shade: 0.5,
+                resize: false,
+                area: ['500px', '500px'],
+                content: ['/html/add-project.html','no'] //iframe的url
+            }); 
         });
 
-    //   //监听提交
-    //   form.on('submit(formDemo)', function(data){
-    //     layer.msg(JSON.stringify(data.field));
-    //     return false;
-    //   });
     });
 </script>
 </html>

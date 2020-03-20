@@ -25,7 +25,7 @@
 
     <div class="container main">
 
-        <aside id="aside-nav">
+        <!-- <aside id="aside-nav">
             <ul>
                 <li>一天数据</li>
                 <li>一周数据</li>
@@ -33,7 +33,7 @@
                 <li>一年数据</li>
                 <li>全部数据</li>
             </ul>
-        </aside>
+        </aside> -->
 
         <div class="content" id="content">
 
@@ -45,55 +45,71 @@
 
 </body>
 <script src="/js/jquery-3.4.1.min.js"></script>
+<script src="/layui/layui.js"></script>
 <script>
 
-    $('.navbar li').click(function(){
-        $(this).parent().children().removeClass('focus');
-        $(this).addClass('focus');
-        render(this);
+    layui.use('layer', function(){
+        var layer = layui.layer; 
+        
+        $('.navbar li').click(function(){
+            $(this).parent().children().removeClass('focus');
+            $(this).addClass('focus');
+            render(this);
+        });
+    
+        //渲染
+        function render(_this){
+            var id = $(_this).attr('id');
+            var html = '';
+            if(id == 'data'){
+                html = '/html/data.html';
+            }else if(id == 'project'){
+                html = '/html/project.html';
+            }else if(id == 'employee'){
+                html = '/html/employee.html';
+            }else if(id == 'material'){
+                html = '/html/material.html';
+            }
+            $('#iframe').prop('src',html);
+            // renderNav(id);
+            // renderCon(_this);
+        }
+    
+        //侧边导航
+        // function renderNav(id){
+        //     var html = '';
+        //     if(id == 'data'){
+        //         html = ['<ul>',
+        //                 '	<li>一天数据</li>',
+        //                 '	<li>一周数据</li>',
+        //                 '	<li>一月数据</li>',
+        //                 '	<li>一年数据</li>',
+        //                 '	<li>全部数据</li>',
+        //                 '</ul>'].join("");
+        //     }else if(id == 'project'){
+        //         html = ['<ul>',
+        //                 '	<li class="focus">项目列表</li>',
+        //                 '	<li>项目录入</li>',
+        //                 '</ul>'].join("");
+        //     }else if(id == 'employee'){
+        //         html = ['<ul>',
+        //                 '	<li>员工录入</li>',
+        //                 '</ul>'].join("");
+        //     }else if(id == 'material'){
+        //         html = ['<ul>',
+        //                 '	<li>材料录入</li>',
+        //                 '</ul>'].join("");
+        //     }
+            
+        //     $('#aside-nav').html(html);
+        // }
+    
+        //主内容
+        // function renderCon(_this){
+    
+        // }
     });
 
-
-    //渲染
-    function render(_this){
-        var id = $(_this).attr('id');
-        renderNav(id);
-        renderCon(_this);
-    }
-
-    //侧边导航
-    function renderNav(id){
-        var html = '';
-        if(id == 'data'){
-            html = ['<ul>',
-                    '	<li>一天数据</li>',
-                    '	<li>一周数据</li>',
-                    '	<li>一月数据</li>',
-                    '	<li>一年数据</li>',
-                    '	<li>全部数据</li>',
-                    '</ul>'].join("");
-        }else if(id == 'project'){
-            html = ['<ul>',
-                    '	<li class="focus">项目列表</li>',
-                    '	<li>项目录入</li>',
-                    '</ul>'].join("");
-        }else if(id == 'employee'){
-            html = ['<ul>',
-                    '	<li>员工录入</li>',
-                    '</ul>'].join("");
-        }else if(id == 'material'){
-            html = ['<ul>',
-                    '	<li>材料录入</li>',
-                    '</ul>'].join("");
-        }
-        
-        $('#aside-nav').html(html);
-    }
-
-    //主内容
-    function renderCon(_this){
-
-    }
 
 </script>
 </html>
