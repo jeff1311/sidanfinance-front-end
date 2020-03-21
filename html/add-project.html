@@ -6,39 +6,40 @@
     <title>项目管理</title>
     <link rel="stylesheet" href="/layui/css/layui.css">
     <link rel="stylesheet" href="/css/common/margin.css">
+    <style>
+        
+        .layui-form-select > dl { max-height: 200px; }
+
+    </style>
 </head>
 <body>
     
-    <form class="layui-form" action="http://192.168.6.237:8888/sidan/finance/project/add" method="POST" style="padding-top:20px;padding-right:40px;">
+    <form class="layui-form" style="padding-top:20px;padding-right:40px;">
+        <input type="hidden" name="projectId" id="projectId">
         <div class="layui-form-item">
             <label class="layui-form-label">项目名称</label>
             <div class="layui-input-block">
-            <input type="text" name="projectName" required  lay-verify="required" placeholder="请输入标题" autocomplete="off" class="layui-input">
+            <input type="text" name="projectName" id="projectName" required  lay-verify="required" placeholder="请输入标题" autocomplete="off" class="layui-input">
             </div>
         </div>
         <div class="layui-form-item">
             <label class="layui-form-label">项目编号</label>
             <div class="layui-input-inline">
-                <input type="text" name="projectNo" required lay-verify="required" placeholder="请输入编号" autocomplete="off" class="layui-input">
+                <input type="text" name="projectNo" id="projectNo" required lay-verify="required" placeholder="请输入编号" autocomplete="off" class="layui-input">
             </div>
             <!-- <div class="layui-form-mid layui-word-aux">辅助文字</div> -->
         </div>
         <div class="layui-form-item">
             <label class="layui-form-label">合同总价</label>
             <div class="layui-input-inline">
-            <input type="number" name="totalPrice" required  lay-verify="required" placeholder="请输入价格" autocomplete="off" class="layui-input">
+            <input type="number" name="totalPrice" id="totalPrice" required  lay-verify="required" placeholder="请输入价格" autocomplete="off" class="layui-input">
             </div>
         </div>
         <div class="layui-form-item">
             <label class="layui-form-label">甲方公司</label>
             <div class="layui-col-xs7" style="width: 274px;">
-                <select name="companyId" lay-verify="required">
-                    <option value=""></option>
-                    <option value="0">北京</option>
-                    <option value="1">上海</option>
-                    <option value="2">广州</option>
-                    <option value="3">深圳</option>
-                    <option value="4">杭州</option>
+                <select name="companyId" id="companyId" lay-verify="required">
+                    
                 </select>
             </div>
             <div class="layui-col-xs1 ml-1">
@@ -50,52 +51,153 @@
         <div class="layui-form-item">
             <label class="layui-form-label">签订时间</label>
             <div class="layui-input-block" style="width:274px;">
-                <input type="text" name="signDate" class="layui-input" autocomplete="off" id="sign-date">
+                <input type="text" name="signDate" id="signDate" class="layui-input" autocomplete="off">
             </div>
         </div>
         <div class="layui-form-item">
             <label class="layui-form-label">开工时间</label>
             <div class="layui-input-block" style="width:274px;">
-                <input type="text" name="startDate" class="layui-input" autocomplete="off" id="start-date">
+                <input type="text" name="startDate" id="startDate" class="layui-input" autocomplete="off">
             </div>
         </div>
         <div class="layui-form-item">
             <label class="layui-form-label">竣工时间</label>
             <div class="layui-input-block" style="width:274px;">
-                <input type="text" name="endDate" class="layui-input" autocomplete="off" id="end-date">
+                <input type="text" name="endDate" id="endDate" class="layui-input" autocomplete="off">
             </div>
         </div>
         
         <div class="layui-form-item">
             <div class="layui-input-block">
-            <button class="layui-btn" lay-submit lay-filter="formDemo">立即提交</button>
+            <button class="layui-btn" lay-submit lay-filter="sub-project">立即提交</button>
             <button type="reset" class="layui-btn layui-btn-primary">重置</button>
             </div>
         </div>
     </form>
 
 </body>
+<script type="text/html" id="add-company">
+    <form class="layui-form" style="padding-top:20px;padding-right:40px;">
+        <div class="layui-form-item">
+            <label class="layui-form-label">公司名称</label>
+            <div class="layui-input-block">
+            <input type="text" name="companyName" required  lay-verify="required" placeholder="请输入标题" autocomplete="off" class="layui-input">
+            </div>
+        </div>
+        <div class="layui-form-item">
+            <label class="layui-form-label">集团名称</label>
+            <div class="layui-input-block">
+            <input type="text" name="groupName" required  lay-verify="required" placeholder="请输入标题" autocomplete="off" class="layui-input">
+            </div>
+        </div>
+        <div class="layui-form-item">
+            <div class="layui-input-block">
+            <button class="layui-btn" lay-submit lay-filter="sub-company">立即提交</button>
+            <button type="reset" class="layui-btn layui-btn-primary">重置</button>
+            </div>
+        </div>
+    </form>
+</script>
+<script src="/js/config.js"></script>
 <script src="/js/jquery-3.4.1.min.js"></script>
 <script src="/layui/layui.js"></script>
 <script>
+
+    function parantData(data){
+        console.log(data);
+    }
+
     layui.use(['layer','form','table','laydate'], function(){
         var layer = layui.layer;
         var form = layui.form;
         var table = layui.table;
         var laydate = layui.laydate;
         
+        laydate.render({
+            elem: '#signDate',
+            trigger: 'click'//呼出事件改成click
+        });
+        laydate.render({
+            elem: '#startDate',
+            trigger: 'click'//呼出事件改成click
+        });
+        laydate.render({
+            elem: '#endDate',
+            trigger: 'click'//呼出事件改成click
+        });
 
-        laydate.render({
-            elem: '#sign-date',
-            trigger: 'click'//呼出事件改成click
+        renderConpanyList();
+
+        function renderConpanyList(){
+            $.ajax({
+                url:baseUrl + '/sidan/finance/company/list',
+                type:'get',
+                dataType:'json',
+                success:function(json){
+                    console.log(json);
+                    if(json.code == 0){
+                        var html = '<option value=""></option>';
+                        for (const company of json.data) {
+                            html += '<option value="' + company.id + '">' + company.name + ' - ' + company.groupName + '</option>';
+                        }
+                        $('#companyId').html(html);
+                        form.render();
+                    }else{
+                        layer.msg(json.msg);
+                    }
+                }
+            });
+        }
+
+        var window1;
+        $('#add-p').on('click',function(){
+            window1 = layer.open({
+                type: 1,
+                title: '添加公司',
+                shadeClose: true,
+                shade: 0.5,
+                resize: false,
+                area: ['80%', '50%'],
+                content: $('#add-company').text()
+            }); 
         });
-        laydate.render({
-            elem: '#start-date',
-            trigger: 'click'//呼出事件改成click
+
+        form.on('submit(sub-company)', function(data){
+            $.ajax({
+                url:baseUrl + '/sidan/finance/company/add',
+                type:'post',
+                data:data.field,
+                dataType:'json',
+                success:function(json){
+                    console.log(json);
+                    if(json.code == 0){
+                        layer.close(window1);
+                        location.reload();
+                    }else{
+                        parent.layer.msg(json.msg);
+                    }
+                }
+            })
+            return false; //阻止表单跳转。如果需要表单跳转，去掉这段即可。
         });
-        laydate.render({
-            elem: '#end-date',
-            trigger: 'click'//呼出事件改成click
+
+        form.on('submit(sub-project)', function(data){
+            $.ajax({
+                url:baseUrl + '/sidan/finance/project/add',
+                type:'post',
+                data:data.field,
+                dataType:'json',
+                success:function(json){
+                    console.log(json);
+                    if(json.code == 0){
+                        parent.layer.closeAll();//关闭父页面所有弹窗
+                        parent.location.reload();//刷新父页面
+                    }else{
+                        parent.layer.msg(json.msg);
+                    }
+                }
+            });
+            return false; //阻止表单跳转。如果需要表单跳转，去掉这段即可。
         });
 
     });

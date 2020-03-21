@@ -32,6 +32,7 @@
         </div>
     </div>
 </body>
+<script src="/js/config.js"></script>
 <script src="/js/jquery-3.4.1.min.js"></script>
 <script src="/layui/layui.js"></script>
 <script>
@@ -40,8 +41,7 @@
 
         $('#submit').click(function(){
             $.ajax({
-                // url:'http://192.168.0.103:8888/sidan/finance/login',
-                url:'http://192.168.6.237:8888/sidan/finance/login',
+                url:baseUrl + '/sidan/finance/login',
                 type:'post',
                 data:{
                     account:$('#account').val(),
