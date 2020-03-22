@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>项目管理</title>
+    <title>添加项目</title>
     <link rel="stylesheet" href="/layui/css/layui.css">
     <link rel="stylesheet" href="/css/common/margin.css">
     <style>
@@ -19,28 +19,26 @@
         <div class="layui-form-item">
             <label class="layui-form-label">项目名称</label>
             <div class="layui-input-block">
-            <input type="text" name="projectName" id="projectName" required  lay-verify="required" placeholder="请输入标题" autocomplete="off" class="layui-input">
+            <input type="text" name="projectName" id="projectName" required  lay-verify="required" placeholder="请输入项目名称" autocomplete="off" class="layui-input">
             </div>
         </div>
         <div class="layui-form-item">
             <label class="layui-form-label">项目编号</label>
             <div class="layui-input-inline">
-                <input type="text" name="projectNo" id="projectNo" required lay-verify="required" placeholder="请输入编号" autocomplete="off" class="layui-input">
+                <input type="text" name="projectNo" id="projectNo" required lay-verify="required" placeholder="请输入项目编号" autocomplete="off" class="layui-input">
             </div>
             <!-- <div class="layui-form-mid layui-word-aux">辅助文字</div> -->
         </div>
         <div class="layui-form-item">
             <label class="layui-form-label">合同总价</label>
             <div class="layui-input-inline">
-            <input type="number" name="totalPrice" id="totalPrice" required  lay-verify="required" placeholder="请输入价格" autocomplete="off" class="layui-input">
+            <input type="number" name="totalPrice" id="totalPrice" required  lay-verify="required" placeholder="请输入合同价格" autocomplete="off" class="layui-input">
             </div>
         </div>
         <div class="layui-form-item">
             <label class="layui-form-label">甲方公司</label>
             <div class="layui-col-xs7" style="width: 274px;">
-                <select name="companyId" id="companyId" lay-verify="required">
-                    
-                </select>
+                <select name="companyId" id="companyId" lay-verify="required"></select>
             </div>
             <div class="layui-col-xs1 ml-1">
                 <button type="button" class="layui-btn" id="add-p">
@@ -51,19 +49,19 @@
         <div class="layui-form-item">
             <label class="layui-form-label">签订时间</label>
             <div class="layui-input-block" style="width:274px;">
-                <input type="text" name="signDate" id="signDate" class="layui-input" autocomplete="off">
+                <input type="text" name="signDate" id="signDate" placeholder="请输入签订时间" class="layui-input" autocomplete="off">
             </div>
         </div>
         <div class="layui-form-item">
             <label class="layui-form-label">开工时间</label>
             <div class="layui-input-block" style="width:274px;">
-                <input type="text" name="startDate" id="startDate" class="layui-input" autocomplete="off">
+                <input type="text" name="startDate" id="startDate" placeholder="请输入开工时间" class="layui-input" autocomplete="off">
             </div>
         </div>
         <div class="layui-form-item">
             <label class="layui-form-label">竣工时间</label>
             <div class="layui-input-block" style="width:274px;">
-                <input type="text" name="endDate" id="endDate" class="layui-input" autocomplete="off">
+                <input type="text" name="endDate" id="endDate" placeholder="请输入竣工时间" class="layui-input" autocomplete="off">
             </div>
         </div>
         
@@ -81,13 +79,13 @@
         <div class="layui-form-item">
             <label class="layui-form-label">公司名称</label>
             <div class="layui-input-block">
-            <input type="text" name="companyName" required  lay-verify="required" placeholder="请输入标题" autocomplete="off" class="layui-input">
+            <input type="text" name="companyName" required  lay-verify="required" placeholder="请输入公司名称" autocomplete="off" class="layui-input">
             </div>
         </div>
         <div class="layui-form-item">
             <label class="layui-form-label">集团名称</label>
             <div class="layui-input-block">
-            <input type="text" name="groupName" required  lay-verify="required" placeholder="请输入标题" autocomplete="off" class="layui-input">
+            <input type="text" name="groupName" required  lay-verify="required" placeholder="请输入集团名称" autocomplete="off" class="layui-input">
             </div>
         </div>
         <div class="layui-form-item">
@@ -102,10 +100,6 @@
 <script src="/js/jquery-3.4.1.min.js"></script>
 <script src="/layui/layui.js"></script>
 <script>
-
-    function parantData(data){
-        console.log(data);
-    }
 
     layui.use(['layer','form','table','laydate'], function(){
         var layer = layui.layer;
@@ -136,7 +130,7 @@
                 success:function(json){
                     console.log(json);
                     if(json.code == 0){
-                        var html = '<option value=""></option>';
+                        var html = '<option value="">请选择甲方公司</option>';
                         for (const company of json.data) {
                             html += '<option value="' + company.id + '">' + company.name + ' - ' + company.groupName + '</option>';
                         }
@@ -191,7 +185,7 @@
                     console.log(json);
                     if(json.code == 0){
                         parent.layer.closeAll();//关闭父页面所有弹窗
-                        parent.location.reload();//刷新父页面
+                        // parent.location.reload();//刷新父页面
                     }else{
                         parent.layer.msg(json.msg);
                     }

@@ -1,0 +1,64 @@
+@import url(./common/common.css);
+@import url(./common/margin.css);
+@import url(../layui/css/layui.css);
+
+body{
+    padding: 1rem 1rem;
+}
+
+.layui-btn, .layui-input, .layui-table-cell {
+    font-size: 12px;
+}
+
+.layui-card {
+    cursor: pointer;
+    color: #666 !important;
+    box-shadow: 0 0 5px rgba(0,0,0,.1) !important;
+    // box-shadow: none !important;
+    // border: 1px solid #f6f6f6;;
+
+    .layui-card-header{
+        font-size: medium;
+        color: #666 !important;
+        display: flex;
+        justify-content: space-between;
+
+        & > span:last-child{
+            font-size: smaller !important;
+        }
+
+    }
+    
+    .layui-card-body{
+        font-size: smaller !important;
+    }
+
+    &:hover{
+        box-shadow: 0 0 5px rgba(0,0,0,.3) !important;
+    }
+
+}
+
+.name{
+    cursor: default;
+    color: #666;
+    border-bottom: none !important;
+}
+
+tr td:first-child{
+    background-color: #f2f2f2;
+}
+
+
+.row-gap{
+    margin: -5px -5px !important;
+
+    *{
+      box-sizing: border-box !important;
+    }
+  
+    
+}
+.col-gap{
+    padding: 5px 5px !important;
+}

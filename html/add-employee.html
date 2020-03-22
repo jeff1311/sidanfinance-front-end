@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>添加员工</title>
+    <link rel="stylesheet" href="/layui/css/layui.css">
+    <link rel="stylesheet" href="/css/common/margin.css">
+    <style>
+        
+        .layui-form-select > dl { max-height: 110px; }
+
+    </style>
+</head>
+<body>
+    
+    <form class="layui-form" style="padding-top:20px;padding-right:40px;">
+        <input type="hidden" name="employeeId" id="employeeId">
+        <div class="layui-form-item">
+            <label class="layui-form-label">员工姓名</label>
+            <div class="layui-input-block" style="width: 210px;">
+                <input type="text" name="name" id="name" required  lay-verify="required" placeholder="请输入员工姓名" autocomplete="off" class="layui-input">
+            </div>
+        </div>
+        
+        <div class="layui-form-item">
+            <label class="layui-form-label">员工工种</label>
+            <div class="layui-col-xs7">
+                <select name="type" id="type" lay-verify="required">
+                    <option value=""></option>
+                    <option value="0">管理</option>
+                    <option value="1">木工</option>
+                    <option value="2">瓦工</option>
+                    <option value="3">油工</option>
+                    <option value="4">电工</option>
+                    <option value="5">小工</option>
+                    <option value="6">抹灰工</option>
+                </select>
+            </div>
+        </div>
+        
+        <div class="layui-form-item">
+            <div class="layui-input-block">
+            <button class="layui-btn" lay-submit lay-filter="sub-employee">立即提交</button>
+            <button type="reset" class="layui-btn layui-btn-primary">重置</button>
+            </div>
+        </div>
+    </form>
+
+</body>
+<script src="/js/config.js"></script>
+<script src="/js/jquery-3.4.1.min.js"></script>
+<script src="/layui/layui.js"></script>
+<script>
+    console.log(parent.layui);
+    layui.use(['layer','form','table','laydate'], function(){
+        var layer = layui.layer;
+        var form = layui.form;
+        var table = layui.table;
+        var laydate = layui.laydate;
+        
+        laydate.render({
+            elem: '#signDate',
+            trigger: 'click'//呼出事件改成click
+        });
+        laydate.render({
+            elem: '#startDate',
+            trigger: 'click'//呼出事件改成click
+        });
+        laydate.render({
+            elem: '#endDate',
+            trigger: 'click'//呼出事件改成click
+        });
+
+        form.on('submit(sub-employee)', function(data){
+            $.ajax({
+                url:baseUrl + '/sidan/finance/employee/add',
+                type:'post',
+                data:data.field,
+                dataType:'json',
+                success:function(json){
+                    console.log(json);
+                    if(json.code == 0){
+                        parent.layer.closeAll();//关闭父页面所有弹窗
+                        parent.location.reload();//刷新父页面
+                    }else{
+                        parent.layer.msg(json.msg);
+                    }
+                }
+            });
+            return false; //阻止表单跳转。如果需要表单跳转，去掉这段即可。
+        });
+
+    });
+</script>
+</html>

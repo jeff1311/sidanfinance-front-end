@@ -3,23 +3,20 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>项目管理</title>
-    <link rel="stylesheet" href="/css/project.css">
+    <title>员工管理</title>
+    <link rel="stylesheet" href="/css/employee.css">
 </head>
 <body>
 
     <div class="layui-row">
-        <div class="layui-col-md3 mr-1">
-            <input type="text" autocomplete="off" class="layui-input" placeholder="项目名称" id="projectName">
+        <div class="layui-col-md2 mr-1">
+            <input type="text" autocomplete="off" class="layui-input" placeholder="员工姓名" id="name">
         </div>
-        <!-- <div class="layui-col-md2 mr-1 search-date">
-            <input type="text" class="layui-input" id="searchDate">
-        </div> -->
         <div class="layui-col-md1">
             <button class="layui-btn layui-btn-primary" id="search">查询</button>
         </div>
-        <button type="button" class="layui-btn add-p" id="add-p">
-            <i class="layui-icon">&#xe608;</i> 添加项目
+        <button type="button" class="layui-btn add-p" id="add-e">
+            <i class="layui-icon">&#xe608;</i> 添加员工
         </button>
     </div>
 
@@ -29,8 +26,8 @@
 <script src="/js/config.js"></script>
 <script src="/js/jquery-3.4.1.min.js"></script>
 <script src="/layui/layui.js"></script>
-<script type="text/html" id="feeBar">
-    <a class="layui-btn layui-btn-xs btn-blue" href="https://www.baidu.com">明细</a>
+<script type="text/html" id="timeCard">
+    <a class="layui-btn layui-btn-xs layui-btn-primary" href="/html/time-card-projects.html">明细</a>
 </script>
 <script type="text/html" id="actBar">
     <a class="layui-btn layui-btn-xs" lay-event="edit" class="edit">编辑</a>
@@ -88,27 +85,24 @@
             table.render({
                 elem: '#table',
                 height: 750,
-                url: baseUrl + '/sidan/finance/project/list', //数据接口
+                url: baseUrl + '/sidan/finance/employee/list', //数据接口
                 page: true, //开启分页
                 limit: 10,
                 cols: [
                     [//表头
-                        {field: 'name', title: '项目名称', width:200},
-                        {field: 'no', title: '项目编号', width:100, sort: true},
-                        // {field: 'contractNo', title: '合同编号', width:110, sort: true},
-                        {field: 'companyName', title: '甲方名称', width:170},
-                        {field: 'groupName', title: '甲方集团名称', width: 170},
-                        {field: 'contractSignDate', title: '合同签订时间', width: 120, sort: true, templet:'<div>{{d.contractSignDate}}</div>'},
-                        {field: 'startDate', title: '项目开工时间', width: 120, sort: true, templet:'<div>{{d.startDate}}</div>'},
-                        {field: 'endDate', title: '项目竣工时间', width: 120, sort: true, templet:'<div>{{d.endDate}}</div>'},
-                        {field: 'months', title: '历时（月）', width: 110, sort: true},
-                        {field: 'totalPrice', title: '￥合同总价', width: 110, sort: true},
-                        {fixed: 'right', title:'成本', toolbar: '#feeBar', width:65},
-                        {fixed: 'right', title:'操作', toolbar: '#actBar', width:113}
+                        {field: 'name', title: '姓名', width:200},
+                        {field: 'typeName', title: '工种', width:165},
+                        {field: 'day', title: '工日（累计）', width:165, sort: true},
+                        {field: 'hour', title: '工时（累计）', width:165, sort: true},
+                        {field: 'income', title: '收入（累计）', width:165, sort: true},
+                        {field: 'projectNum', title: '参与项目数', width:160, sort: true},
+                        {field: 'dateInsert', title: '录入时间', width:200, sort: true},
+                        {fixed: 'right', title:'考勤', toolbar: '#timeCard', width:66},
+                        {fixed: 'right', title:'操作', toolbar: '#actBar', width:114}
                     ]   
                 ],
                 where:{
-                    projectName: $('#projectName').val(),
+                    name: $('#name').val(),
                     startDate: $('#searchDate').val()
                 }
             });
@@ -118,15 +112,15 @@
             renderTable();
         });
         
-        $('#add-p').on('click',function(){
+        $('#add-e').on('click',function(){
             parent.layer.open({
                 type: 2,
-                title: '添加项目',
+                title: '添加员工',
                 shadeClose: true,
                 shade: 0.5,
                 resize: false,
-                area: ['500px', '500px'],
-                content: ['/html/add-project.html','no'] //iframe的url
+                area: ['400px', '280px'],
+                content: ['/html/add-employee.html','no'] //iframe的url
             }); 
         });
 
@@ -144,10 +138,10 @@
                         btn: ['确定', '取消'],
                         yes: function(index){
                             $.ajax({
-                                url:baseUrl + '/sidan/finance/project/add',
+                                url:baseUrl + '/sidan/finance/employee/add',
                                 type:'post',
                                 data:{
-                                    projectId:obj.data.id,
+                                    employeeId:obj.data.id,
                                     deleteMark:1
                                 },
                                 dataType:'json',
@@ -157,9 +151,9 @@
                                         obj.del();
                                         layer.close(index);
                                         layer.msg('删除成功');
-                                        // parent.location.reload();//刷新父页面
+                                        location.reload();//刷新父页面
                                     }else{
-                                        parent.layer.msg(json.msg);
+                                        layer.msg(json.msg);
                                     }
                                 }
                             });
@@ -169,38 +163,26 @@
                 case 'edit':
                     parent.layer.open({
                         type: 2,
-                        title: '编辑项目',
+                        title: '编辑员工',
                         shadeClose: true,
                         shade: 0.5,
                         resize: false,
-                        area: ['500px', '500px'],
-                        content: ['/html/add-project.html','no'],//[iframe的url,滚动条]
+                        area: ['400px', '280px'],
+                        content: ['/html/add-employee.html','no'],//[iframe的url,滚动条]
                         success: function (layero, index) {
                             var contentWindow = $(layero).find("iframe")[0].contentWindow;
                             var child = contentWindow.document;
                             var childForm = contentWindow.layui.form;
-                            $(child).find('#projectId').val(obj.data.id);
-                            $(child).find('#projectName').val(obj.data.name);
-                            $(child).find('#projectNo').val(obj.data.no);
-                            $(child).find('#totalPrice').val(obj.data.totalPrice);
-                            $(child).find('#signDate').val(obj.data.contractSignDate);
-                            $(child).find('#startDate').val(obj.data.startDate);
-                            $(child).find('#endDate').val(obj.data.endDate);
-
-                            //设置定时器（子页面select渲染完后再执行）
-                            var interval = setInterval(function(){
-                                var options = $(child).find('#companyId').find('option');
-                                console.log(options.length);
-                                if(options.length > 0){
-                                    clearInterval(interval);
+                            $(child).find('#employeeId').val(obj.data.id);
+                            $(child).find('#name').val(obj.data.name);
+                            var options = $(child).find('#type').find('option');
+                            console.log(options.length);
+                            for (const tag of options) {
+                                if(tag.value == obj.data.type){
+                                    $(tag).prop('selected',true);
                                 }
-                                for (const tag of options) {
-                                    if(tag.value == obj.data.companyId){
-                                        $(tag).prop('selected',true);
-                                    }
-                                }
-                                childForm.render('select');
-                            },1);
+                            }
+                            childForm.render('select');
                         }
                     }); 
                     break;
