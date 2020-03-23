@@ -82,9 +82,7 @@
         //     elem: '#searchDate'
         // });
 
-        renderTable();
-
-        function renderTable(){
+        layui.renderTable = function(){
             table.render({
                 elem: '#table',
                 height: 750,
@@ -114,8 +112,10 @@
             });
         }
       
+        layui.renderTable();
+
         $('#search').on('click',function(){
-            renderTable();
+            layui.renderTable();
         });
         
         $('#add-p').on('click',function(){

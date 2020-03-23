@@ -186,6 +186,7 @@
                     if(json.code == 0){
                         parent.layer.closeAll();//关闭父页面所有弹窗
                         // parent.location.reload();//刷新父页面
+                        $(parent.document).find('iframe')[0].contentWindow.layui.renderTable();
                     }else{
                         parent.layer.msg(json.msg);
                     }

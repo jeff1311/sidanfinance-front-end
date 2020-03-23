@@ -52,7 +52,7 @@
 <script src="/js/jquery-3.4.1.min.js"></script>
 <script src="/layui/layui.js"></script>
 <script>
-    console.log(parent.layui);
+    
     layui.use(['layer','form','table','laydate'], function(){
         var layer = layui.layer;
         var form = layui.form;
@@ -82,7 +82,8 @@
                     console.log(json);
                     if(json.code == 0){
                         parent.layer.closeAll();//关闭父页面所有弹窗
-                        parent.location.reload();//刷新父页面
+                        // parent.location.reload();//刷新父页面
+                        $(parent.document).find('iframe')[0].contentWindow.layui.renderTable();
                     }else{
                         parent.layer.msg(json.msg);
                     }

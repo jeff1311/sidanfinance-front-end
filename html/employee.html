@@ -70,6 +70,7 @@
     </form>
 </script>
 <script>
+
     layui.use(['layer','form','table'], function(){
         var layer = layui.layer;
         var form = layui.form;
@@ -79,9 +80,9 @@
         //     elem: '#searchDate'
         // });
 
-        renderTable();
+        
 
-        function renderTable(){
+        layui.renderTable = function(){
             table.render({
                 elem: '#table',
                 height: 750,
@@ -108,8 +109,10 @@
             });
         }
       
+        layui.renderTable();
+
         $('#search').on('click',function(){
-            renderTable();
+            layui.renderTable();
         });
         
         $('#add-e').on('click',function(){

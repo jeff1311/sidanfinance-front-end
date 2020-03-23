@@ -31,6 +31,12 @@ body{
     
     .layui-card-body{
         font-size: smaller !important;
+
+        *{
+            overflow: hidden;
+            white-space: nowrap;
+            text-overflow: ellipsis;
+        }
     }
 
     &:hover{
@@ -61,4 +67,11 @@ tr td:first-child{
 }
 .col-gap{
     padding: 5px 5px !important;
+}
+
+.calendar-table{
+
+    & tr:hover{
+        background-color: none !important;
+    }
 }
