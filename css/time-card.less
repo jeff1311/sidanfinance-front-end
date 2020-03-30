@@ -70,6 +70,15 @@ tr td:first-child{
 
 .calendar-table{
 
+    & thead th:not(:first-child):not(:last-child){
+        cursor: pointer;
+
+        &:hover{
+            color: #fff;
+            background-color: #13a3e9;
+        }
+    }
+
     & tbody td:not(:first-child){
         padding: 0 0;
     }
@@ -93,7 +102,7 @@ tr td:first-child{
             background-color: #f2f2f2;
         }
 
-        &:focus{
+        &:not(.layui-disabled):focus{    
             cursor: text;
             background-color: #fff;
         }

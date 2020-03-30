@@ -50,6 +50,13 @@ tr td:first-child {
 .col-gap {
   padding: 5px 5px !important;
 }
+.calendar-table thead th:not(:first-child):not(:last-child) {
+  cursor: pointer;
+}
+.calendar-table thead th:not(:first-child):not(:last-child):hover {
+  color: #fff;
+  background-color: #13a3e9;
+}
 .calendar-table tbody td:not(:first-child) {
   padding: 0 0;
 }
@@ -71,7 +78,7 @@ tr td:first-child {
 .calendar-table tbody td > input[type=number]:hover {
   background-color: #f2f2f2;
 }
-.calendar-table tbody td > input[type=number]:focus {
+.calendar-table tbody td > input[type=number]:not(.layui-disabled):focus {
   cursor: text;
   background-color: #fff;
 }
