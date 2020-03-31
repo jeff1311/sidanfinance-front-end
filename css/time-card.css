@@ -38,9 +38,6 @@ body {
   color: #666;
   border-bottom: none !important;
 }
-tr td:first-child {
-  background-color: #f2f2f2;
-}
 .row-gap {
   margin: -5px -5px !important;
 }
@@ -49,6 +46,9 @@ tr td:first-child {
 }
 .col-gap {
   padding: 5px 5px !important;
+}
+.calendar-table tr td:first-child {
+  background-color: #f2f2f2;
 }
 .calendar-table thead th:not(:first-child):not(:last-child) {
   cursor: pointer;
@@ -85,4 +85,19 @@ tr td:first-child {
 .calendar-table tbody td > input[type=number]::-webkit-outer-spin-button,
 .calendar-table tbody td > input[type=number]::-webkit-inner-spin-button {
   -webkit-appearance: none;
+}
+.calendar-table-day {
+  margin: 0 !important;
+}
+.calendar-table-day tbody > tr:hover {
+  background-color: #fff !important;
+}
+.calendar-table-day tbody td:hover {
+  background-color: #f2f2f2;
+}
+.calendar-table-day tr:last-child td {
+  border-bottom: none;
+}
+.layui-layer-title {
+  border-bottom: none !important;
 }

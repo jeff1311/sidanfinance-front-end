@@ -50,10 +50,6 @@ body{
     border-bottom: none !important;
 }
 
-tr td:first-child{
-    background-color: #f2f2f2;
-}
-
 
 .row-gap{
     margin: -5px -5px !important;
@@ -70,7 +66,11 @@ tr td:first-child{
 
 .calendar-table{
 
-    & thead th:not(:first-child):not(:last-child){
+    tr td:first-child{
+        background-color: #f2f2f2;
+    }
+
+    thead th:not(:first-child):not(:last-child){
         cursor: pointer;
 
         &:hover{
@@ -79,15 +79,15 @@ tr td:first-child{
         }
     }
 
-    & tbody td:not(:first-child){
+    tbody td:not(:first-child){
         padding: 0 0;
     }
 
-    & tbody > tr:hover{
+    tbody > tr:hover{
         background-color: #fff !important;
     }
 
-    & tbody td > input[type=number]{
+    tbody td > input[type=number]{
         position: absolute;
         top: 0;
         width: 100%;
@@ -116,4 +116,27 @@ tr td:first-child{
         }
     }
 
+}
+
+.calendar-table-day{
+    margin: 0 !important;
+
+    tbody > tr:hover{
+        background-color: #fff !important;
+    }
+
+    tbody td:hover{
+        background-color: #f2f2f2;
+    }
+
+    & tr:last-child{
+        
+        td{
+            border-bottom: none;
+        }
+    }
+
+}
+.layui-layer-title{
+    border-bottom: none !important;
 }

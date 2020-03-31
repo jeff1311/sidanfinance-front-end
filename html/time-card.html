@@ -150,14 +150,9 @@
         </div>
     </div>
 
-    
-
-
-  
-
 </body>
 <script type="text/html" id="calendar-month">
-  <table class="layui-table">
+  <table class="layui-table calendar-table-day">
     <thead>
       <tr>
         <th>星期日</th>
@@ -169,61 +164,48 @@
         <th>星期六</th>
       </tr> 
     </thead>
-    <tbody id="days">
-      <tr>
-        <td></td>
-        <td></td>
-        <td></td>
-        <td></td>
-        <td></td>
-        <td></td>
-        <td></td>
-      </tr>
-      <tr>
-        <td></td>
-        <td></td>
-        <td></td>
-        <td></td>
-        <td></td>
-        <td></td>
-        <td></td>
-      </tr>
-      <tr>
-        <td></td>
-        <td></td>
-        <td></td>
-        <td></td>
-        <td></td>
-        <td></td>
-        <td></td>
-      </tr>
-      <tr>
-        <td></td>
-        <td></td>
-        <td></td>
-        <td></td>
-        <td></td>
-        <td></td>
-        <td></td>
-      </tr>
-      <tr>
-        <td></td>
-        <td></td>
-        <td></td>
-        <td></td>
-        <td></td>
-        <td></td>
-        <td></td>
-      </tr>
-      <tr>
-        <td></td>
-        <td></td>
-        <td></td>
-        <td></td>
-        <td></td>
-        <td></td>
-        <td></td>
-      </tr>
+    <tbody>
+
+      {{# for(var i = 0;i < 36;i ++){ }}
+        {{#
+          var remainder = i % 7;
+          var dayOfWeek;
+          if(remainder == 0){
+            dayOfWeek = '星期日';
+          }else if(remainder == 1){
+            dayOfWeek = '星期一';
+          }else if(remainder == 2){
+            dayOfWeek = '星期二';
+          }else if(remainder == 3){
+            dayOfWeek = '星期三';
+          }else if(remainder == 4){
+            dayOfWeek = '星期四';
+          }else if(remainder == 5){
+            dayOfWeek = '星期五';
+          }else if(remainder == 6){
+            dayOfWeek = '星期六';
+          }
+        }}
+        {{# if(d.calendar[d.index] != undefined){ }}
+          {{# if(i != 0 && remainder == 0){ }}
+            </tr>
+          {{# } }}
+          {{# if(remainder == 0){ }}
+            <tr>
+          {{# } }}
+          {{# if(d.calendar[d.index].dayOfWeek == dayOfWeek){ }}
+              <td>{{ d.calendar[d.index].dd }}</td>
+              {{# d.index ++; }}
+          {{# }else{ }}
+              <td></td>
+          {{# } }}
+        {{# } }}
+        {{# if(d.index == d.calendar.length){ }}
+          </tr>
+          {{# d.index ++ }}
+        {{# } }}
+      {{# } }}
+
     </tbody>
   </table>
 </script>
@@ -232,16 +214,14 @@
 <script src="/layui/layui.js"></script>
 <script>
 
-  layui.use('layer', function(){
-
+  layui.use(['layer','laytpl'], function(){
     var layer = layui.layer; 
-
-
+    var laytpl = layui.laytpl;
 
     $('.calendar-table thead th').on('click',function(e){
       var date = $(this).attr('date');
       if(date != undefined){
-        console.log(date);
+        // console.log(date);
         $.ajax({
           url: baseUrl + '/sidan/finance/attendance/calendar',
           type: 'get',
@@ -251,50 +231,22 @@
           },
           dataType: 'json',
           success: function(json){
-            console.log(json);
             if(json.code == 0){
-
-              layer.open({
-                type: 1,
-                title: '2020-03',
-                shadeClose: true,
-                shade: false,
-                resize: false,
-                area: ['700px', '500px'],
-                content: $('#calendar-month').text()
+              var tpl = $('#calendar-month').html();
+              json.index = 0;
+              laytpl(tpl).render(json, function(html){
+                layer.closeAll();
+                layer.open({
+                  type: 1,
+                  title: date,
+                  shadeClose: true,
+                  shade: false,
+                  resize: false,
+                  area: '700px',
+                  content: html
+                });
               });
 
-              var days = json.calendar;
-              var index = 0;
-              $('#days td').each(function(i){
-                console.log(i % 7);
-                var remainder = i % 7;
-                var dayOfWeek;
-                if(remainder == 0){
-                  dayOfWeek = '星期日';
-                }else if(remainder == 1){
-                  dayOfWeek = '星期一';
-                }else if(remainder == 2){
-                  dayOfWeek = '星期二';
-                }else if(remainder == 3){
-                  dayOfWeek = '星期三';
-                }else if(remainder == 4){
-                  dayOfWeek = '星期四';
-                }else if(remainder == 5){
-                  dayOfWeek = '星期五';
-                }else if(remainder == 6){
-                  dayOfWeek = '星期六';
-                } 
-                if(index < days.length && days[index].dayOfWeek == dayOfWeek){
-                  console.log(dayOfWeek);
-                  console.log(days[index].dayOfWeek);
-                  // console.log(index);
-                  $(this).text(days[index].dd);
-                  index ++;
-                }else{
-                  $(this).text('');
-                }
-              });
             }else{
               console.log(josn.msg);
             }
