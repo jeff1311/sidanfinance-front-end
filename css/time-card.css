@@ -95,9 +95,46 @@ body {
 .calendar-table-day tbody td:hover {
   background-color: #f2f2f2;
 }
+.calendar-table-day tbody td div {
+  display: flex;
+  justify-content: space-between;
+}
+.calendar-table-day tbody td div span:last-child {
+  font-size: 12px;
+}
+.calendar-table-day tbody td div::after {
+  font-size: 12px;
+  content: 'hr';
+}
+.calendar-table-day tbody td div input {
+  border: none;
+  width: 30px;
+  color: #13a3e9;
+  text-align: center;
+  -moz-appearance: textfield;
+}
+.calendar-table-day tbody td div input::-webkit-outer-spin-button,
+.calendar-table-day tbody td div input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+}
 .calendar-table-day tr:last-child td {
   border-bottom: none;
 }
+.calendar-table-day th:first-child {
+  border-left: none;
+}
+.calendar-table-day th:last-child {
+  border-right: none;
+}
+.calendar-table-day td:nth-child(1) {
+  border-left: none;
+}
+.calendar-table-day td:nth-child(7) {
+  border-right: none;
+}
 .layui-layer-title {
   border-bottom: none !important;
+}
+.layui-layer-content {
+  overflow: hidden !important;
 }

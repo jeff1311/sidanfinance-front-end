@@ -194,7 +194,12 @@
             <tr>
           {{# } }}
           {{# if(d.calendar[d.index].dayOfWeek == dayOfWeek){ }}
-              <td>{{ d.calendar[d.index].dd }}</td>
+              <td>
+                <div>
+                  <span>{{ d.calendar[d.index].dd }}</span>
+                  <input type="number" min="0" max="24">
+                </div>
+              </td>
               {{# d.index ++; }}
           {{# }else{ }}
               <td></td>

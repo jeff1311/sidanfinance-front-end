@@ -129,14 +129,60 @@ body{
         background-color: #f2f2f2;
     }
 
-    & tr:last-child{
+    tbody td div{
+        display: flex;
+        justify-content: space-between;
+
+        span:last-child{
+            font-size: 12px;
+        }
+
+        &::after{
+            font-size: 12px;
+            content: 'hr';
+        }
+
+        input{
+            border: none;
+            width: 30px;
+            color: #13a3e9;
+            // font-size: large;
+            text-align: center;
+
+            &::-webkit-outer-spin-button,
+            &::-webkit-inner-spin-button {
+                -webkit-appearance: none;
+            }
+            &{
+                -moz-appearance: textfield;
+            }
+        }
+
+    }
+
+    tr:last-child{
         
         td{
             border-bottom: none;
         }
     }
 
+    th:first-child{
+        border-left: none;
+    }
+    th:last-child{
+        border-right: none;
+    }
+    td:nth-child(1){
+        border-left: none;
+    }
+    td:nth-child(7){
+        border-right: none;
+    }
 }
 .layui-layer-title{
     border-bottom: none !important;
+}
+.layui-layer-content {
+    overflow: hidden !important;
 }
