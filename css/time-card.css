@@ -138,3 +138,10 @@ body {
 .layui-layer-content {
   overflow: hidden !important;
 }
+.task-card {
+  border: solid 1px #666;
+}
+.task-card th,
+.task-card td {
+  border: solid 1px #666;
+}
