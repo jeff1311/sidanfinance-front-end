@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>考勤卡</title>
+    <title>考勤卡-施工计件统计</title>
     <link rel="stylesheet" href="/css/time-card.css">
 </head>
 <body>
@@ -14,58 +14,178 @@
     <div class="layui-row row-gap">
       <div class="layui-col-md6 col-gap">
         <table class="task-card">
+          <col width="20%"/>
+          <col width="10%"/>
+          <col width="10%"/>
+          <col width="10%"/>
+          <col width="10%"/>
+          <col width="10%"/>
+          <col width="10%"/>
+          <col width="10%"/>
+          <col width="10%"/>
           <thead>
-            <tr>
-              <th>工程名称</th>
-              <th>北京观承别墅项目</th>
-            </tr>
+            
           </thead>
           <tbody>
             <tr>
-              <td>施工时间</td>
-              <td></td>
+              <td>施工部位：楼号</td>
+              <td class="input-full"><input type="number"></td>
+              <td>层号</td>
+              <td class="input-full"><input type="number"></td>
+              <td>户型</td>
+              <td class="input-full"><input type="text"></td>
+              <td>房间号</td>
+              <td colspan="2" class="input-full"><input type="text"></td>
             </tr>
             <tr>
+              <td>计件名称</td>
+              <td colspan="2" class="input-full"><input type="text"></td>
               <td>单位</td>
-              <td></td>
-            </tr>
-            <tr>
+              <td class="input-full"><input type="text"></td>
               <td>单价</td>
-              <td></td>
+              <td class="input-full"><input type="text"></td>
+              <td>数量</td>
+              <td class="input-full"><input type="text"></td>
             </tr>
             <tr>
-              <td>数量</td>
-              <td></td>
+              <td>开始日期</td>
+              <td colspan="3"></td>
+              <td colspan="2">完成日期</td>
+              <td colspan="3"></td>
+            </tr>
+            <tr>
+              <td>施工部位描述</td>
+              <td colspan="8"></td>
+            </tr>
+            <tr>
+              <td>施工材料描述</td>
+              <td colspan="8"></td>
             </tr>
             <tr>
               <td>额外收入</td>
               <td></td>
-            </tr>
-            <tr>
-              <td>扣除金额</td>
+              <td colspan="2">扣除金额</td>
               <td></td>
-            </tr>
-            <tr>
-              <td>施工部位描述</td>
-              <td></td>
-            </tr>
-            <tr>
-              <td>施工材料描述</td>
-              <td></td>
+              <td colspan="2">结算金额</td>
+              <td colspan="2"></td>
             </tr>
             <tr>
               <td>是否验收合格</td>
-              <td></td>
-            </tr>
-            <tr>
+              <td colspan="1"></td>
               <td>备注</td>
-              <td></td>
+              <td colspan="6"></td>
             </tr>
           </tbody>
         </table>
       </div>
+      
       <div class="layui-col-md6 col-gap">
-        
+        <table width="713" class="task-card" style="font-size: 12px;">
+          <col width="101"/>
+          <col width="85"/>
+          <col width="44"/>
+          <col width="48"/>
+          <col width="54"/>
+          <col width="56"/>
+          <col width="79"/>
+          <col width="46"/>
+          <col width="64"/>
+          <col width="56"/>
+          <col width="80"/>
+          <tr height="64">
+            <td colspan="11">施工计件统计表</td>
+          </tr>
+          <tr height="35">
+            <td colspan="11"><span></span>编号：（瓦、油、水、电）木0001</td>
+          </tr>
+          <tr>
+            <td colspan="11">工程名称：北京观承别墅项目<span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>分配任务日期： 2020-3-15</td>
+          </tr>
+          <tr>
+            <td>施工部位</td>
+            <td colspan="10">1号楼10层 A户型（1001、1002、1003、1004、1005）房间</td>
+          </tr>
+          <tr>
+            <td>计件名称</td>
+            <td colspan="2">石膏板吊顶</td>
+            <td>单位</td>
+            <td>户</td>
+            <td>单价（元）</td>
+            <td>800</td>
+            <td>数量</td>
+            <td>5</td>
+            <td>合价（元）</td>
+            <td>4000</td>
+          </tr>
+          <tr>
+            <td>施工人姓名</td>
+            <td colspan="2">张三</td>
+            <td colspan="2">开始日期</td>
+            <td colspan="2">2020/3/15</td>
+            <td colspan="2">完成日期</td>
+            <td colspan="2"></td>
+          </tr>
+          <tr>
+            <td>工作内容</td>
+            <td colspan="10">异形吊顶：放线、吊顶龙骨安装、异形立邦板安装、配合龙骨隐蔽验收、顶面封石膏板、配合下一工种施工。</td>
+          </tr>
+          <tr>
+            <td>安全标准交底</td>
+            <td colspan="10">施工前检查梯子是否安全，高处作业必须挂好安全带，检查好电源，违规操作一次扣款100元，违反操作规程责任自负。</td>
+          </tr>
+          <tr>
+            <td>交底人</td>
+            <td>李四</td>
+            <td colspan="2">接受人</td>
+            <td colspan="7">按交底方案施工，质量达到合同约定验收标准。<span> </span>张三</td>
+          </tr>
+          <tr>
+            <td>材料用量</td>
+            <td>计划用量</td>
+            <td colspan="4">副龙骨40根=120M</td>
+            <td>实际用量</td>
+            <td colspan="4">副龙骨41根=123M（损耗1根）或（副龙骨39根=117M）(正常）</td>
+          </tr>
+          <tr>
+            <td>材料验收评判</td>
+            <td colspan="6">41根超领1根=3M。或（现场用料39根属正常损耗）</td>
+            <td colspan="2">施工质量情况</td>
+            <td colspan="2">合格或不合格</td>
+          </tr>
+          <tr>
+            <td>维修检查评判</td>
+            <td colspan="6">已维修完成 或（在规定时间内维修完成）</td>
+            <td colspan="2">维修日期</td>
+            <td colspan="2">2020/3/18</td>
+          </tr>
+          <tr>
+            <td>施工人、工长、质检员验收签字</td>
+            <td colspan="6"></td>
+            <td colspan="2">验收日期</td>
+            <td colspan="2">2020/3/20</td>
+          </tr>
+          <tr>
+            <td>材料增减情况</td>
+            <td colspan="10">浪费龙骨3M*12=36元。或（按常规损耗量完成施工）</td>
+          </tr>
+          <tr>
+            <td>结算评判</td>
+            <td colspan="6">应扣36元。或（无扣款，正常结算）</td>
+            <td colspan="2">结算金额</td>
+            <td colspan="2">4000-36=3964元</td>
+          </tr>
+          <tr>
+            <td>施工人：</td>
+            <td colspan="2"></td>
+            <td colspan="2">工长签字：</td>
+            <td></td>
+            <td></td>
+            <td colspan="3">项目经理签字：</td>
+            <td></td>
+          </tr>
+          <tr>
+            <td colspan="11">说明：采用计件考勤的项目，每月月末须将施工人完成的通过验收合格的施工任务用此表完成统计，签字齐全后，扫描（或拍照）在录考勤时上传系统，原件寄财务部保存。</td>
+         </table>
       </div>
     </div>
 
