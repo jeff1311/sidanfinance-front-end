@@ -2,6 +2,10 @@
 @import url(./common/margin.css);
 @import url(../layui/css/layui.css);
 
+html { 
+    overflow-x:hidden; 
+}
+
 body{
     padding: 1rem 1rem;
 }
@@ -48,20 +52,6 @@ body{
     cursor: default;
     color: #666;
     border-bottom: none !important;
-}
-
-
-.row-gap{
-    margin: -5px -5px !important;
-
-    *{
-      box-sizing: border-box !important;
-    }
-    
-}
-
-.col-gap{
-    padding: 5px 5px !important;
 }
 
 .calendar-table{
@@ -221,6 +211,9 @@ body{
         text-indent: 15px;
         overflow: hidden;
         cursor: pointer;
+        overflow: hidden;
+        white-space: nowrap;
+        text-overflow: ellipsis;
 
         &:hover{
             background-color: #f2f2f2;

@@ -1,0 +1,335 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>成本明细</title>
+    <link rel="stylesheet" href="/css/project.css">
+</head>
+<body>
+
+    <div class="breadcrumb mb-3" style="display: flex;justify-content: space-between;">
+        <span class="layui-breadcrumb">
+            <a href="/html/project.html">项目管理</a>
+            <a href="">成本明细</a>
+        </span>
+        <span class="layui-breadcrumb">
+            <a href="javascript:history.go(-1);">返回</a>
+        </span>
+    </div>
+
+    <div class="layui-row row-gap">
+        <div class="layui-col-md3 col-gap">
+            <div id="pie" style="width: 100%;height:350px;"></div>
+        </div>
+        <div class="layui-col-md9 col-gap">
+            <div id="line" style="width: 100%;height:350px;"></div>
+        </div>
+    </div>
+
+    <div class="layui-row mt-3">
+
+        <div class="layui-tab">
+            <ul class="layui-tab-title">
+              <li class="layui-this">人员成本</li>
+              <li>材料成本</li>
+            </ul>
+            <a id="anchor"></a>
+            <div class="layui-tab-content">
+              <div class="layui-tab-item layui-show">
+                <table id="empTable" lay-filter="table-filter"></table>
+              </div>
+              <div class="layui-tab-item">
+                <table id="matTable" lay-filter="table-filter"></table>
+              </div>
+            </div>
+        </div>
+        
+    </div>
+
+</body>
+<script src="/js/config.js"></script>
+<script src="/js/jquery-3.4.1.min.js"></script>
+<script src="/layui/layui.js"></script>
+<script src="/js/echarts.min.js"></script>
+<script>
+    
+    layui.use(['element','table'], function(){
+        var element = layui.element;
+        var table = layui.table;
+        
+        var pieChart = echarts.init(document.getElementById('pie'));
+        pieOption = {
+            title: {
+                text: '项目总成本',
+                subtext: '111991.89元',
+                left: 'center'
+            },
+            tooltip: {
+                trigger: 'item',
+                formatter: '{a} <br/>{b} : {c} ({d}%)'
+            },
+            legend: {
+                // orient: 'vertical',
+                // top: 'middle',
+                bottom: 10,
+                left: 'center',
+                data: ['人员', '材料']
+            },
+            series: [
+                {
+                    type: 'pie',
+                    radius: '65%',
+                    center: ['50%', '50%'],
+                    selectedMode: 'single',
+                    data: [
+                        {value: 634, name: '人员'},
+                        {value: 735, name: '材料'}
+                    ],
+                    emphasis: {
+                        itemStyle: {
+                            shadowBlur: 10,
+                            shadowOffsetX: 0,
+                            shadowColor: 'rgba(0, 0, 0, 0.5)'
+                        }
+                    },
+                    itemStyle: {
+                        normal: {
+                            color: function(params) {
+                                var colorList = ['#66B3FF','#79FF79'];
+                                return colorList[params.dataIndex]
+                            },
+                            label: {
+                                show: true,
+                                position: 'top',
+                                formatter: '{b}\n{c}'
+                            }
+                        }
+                    }
+                }
+            ]
+        };
+    
+        pieChart.setOption(pieOption);
+    
+        var lineChart = echarts.init(document.getElementById('line'));
+        lineOption = {
+            // 标题
+            title: {
+                text: '项目每日成本', // 标题名称
+                // subtext: '111991.89元',
+                left: 'center'
+            },
+            // x轴
+            xAxis: {
+                data: ['04-01','04-02','04-03','04-04','04-05','04-06','04-07',], // x轴坐标名称
+            },
+            // y轴
+            yAxis: {},
+            // 提示框，鼠标悬浮交互时的信息提示
+            tooltip: {
+                show: true, // 是否显示
+                trigger: 'axis', // 触发类型，默认数据触发，见下图，可选为：'item' | 'axis'
+            },
+            legend: {
+                top: 30,
+                // left: 'center',
+                data: ['人员', '材料']    
+            },
+            dataZoom:[{
+                type: 'slider',//图表下方的伸缩条
+                show : true, //是否显示
+                realtime : true, //拖动时，是否实时更新系列的视图
+                start : 0, //伸缩条开始位置（1-100），可以随时更改
+                end : 100, //伸缩条结束位置（1-100），可以随时更改
+            }],
+            // 指定图标的类型
+            series: [
+                // 第一条折线图
+                {
+                    name: '人员', // 系列名称
+                    type: 'line', // 类型：线
+                    data: [110.08,22.00,330.33,44.25,555.28,866.589,777.88], // 数据
+                    markPoint: {
+                        // 标注图形数据
+                        data: [{
+                                type: 'max', // 类型
+                                symbol: 'none', // 标志图形类型，默认自动选择（8种类型循环使用，不显示标志图形可设为'none'），默认循环选择类型有：'circle' | 'rectangle' | 'triangle' | 'diamond' |'emptyCircle' | 'emptyRectangle' | 'emptyTriangle' | 'emptyDiamond' 另外，还支持五种更特别的标志图形'heart'（心形）、'droplet'（水滴）、'pin'（标注）、'arrow'（箭头）和'star'（五角星），这并不出现在常规的8类图形中，但无论是在系列级还是数据级上你都可以指定使用，同时，'star' + n（n>=3)可变化出N角星，如指定为'star6'则可以显示6角星 
+                                name: '最大值'
+                            },
+                            {
+                                type: 'min', // 类型
+                                symbol: 'none',
+                                name: '最小值'
+                            },
+                        ],
+                        // 特殊标注文字
+                        label: {
+                            normal: {
+                                show: true,
+                                //position: 'top', // 文字位置
+                                // 显示的文字
+                                formatter: '{b}：{c}',
+                            }
+                        },
+                        // 触发操作
+                        tooltip: {
+                            show: true, // 是否显示
+                            formatter: '{b}：{c}', // 内容格式器 a（系列名称），b（类目值），c（数值）, d（无）
+                            trigger: 'item', // 触发类型，默认数据触发，见下图，可选为：'item' | 'axis'
+                        },
+                    },
+                    markLine: {
+                        data: [{
+                            type: 'average',
+                            name: '平均值',
+                            itemStyle: {
+                                normal: {
+                                    color: 'orange'
+                                }
+                            }
+                        }]
+                    },
+                    // 折线图圆点
+                    label: {
+                        normal: {
+                            show: true,
+                            //position: 'bottom', // 文字位置
+                            // 显示的文字
+                            formatter: '{c}',
+                            textStyle: {
+                                color: '#000' // 文字颜色
+                            }
+                        }
+                    },
+                    itemStyle: {
+                        normal: {
+                            color: '#66B3FF'
+                        }
+                    }
+                },
+                // 第二条折线图
+                {
+                    name: '材料', // 系列名称
+                    type: 'line', // 类型：线
+                    data: [810.23,2222.22,333.59,450.23,5245.22,668.88,989.77], // 数据
+                    markPoint: {
+                        // 标注图形数据
+                        data: [{
+                                type: 'max', // 类型
+                                symbol: 'none', // 标志图形类型，默认自动选择（8种类型循环使用，不显示标志图形可设为'none'），默认循环选择类型有：'circle' | 'rectangle' | 'triangle' | 'diamond' |'emptyCircle' | 'emptyRectangle' | 'emptyTriangle' | 'emptyDiamond' 另外，还支持五种更特别的标志图形'heart'（心形）、'droplet'（水滴）、'pin'（标注）、'arrow'（箭头）和'star'（五角星），这并不出现在常规的8类图形中，但无论是在系列级还是数据级上你都可以指定使用，同时，'star' + n（n>=3)可变化出N角星，如指定为'star6'则可以显示6角星 
+                                name: '最大值'
+                            },
+                            {
+                                type: 'min', // 类型
+                                symbol: 'none',
+                                name: '最小值'
+                            },
+                        ],
+                        // 特殊标注文字
+                        label: {
+                            normal: {
+                                show: true,
+                                //position: 'top', // 文字位置
+                                // 显示的文字
+                                formatter: '{b}：{c}',
+                            }
+                        },
+                        // 触发操作
+                        tooltip: {
+                            show: true, // 是否显示
+                            formatter: '{b}：{c}', // 内容格式器 a（系列名称），b（类目值），c（数值）, d（无）
+                            trigger: 'item', // 触发类型，默认数据触发，见下图，可选为：'item' | 'axis'
+                        },
+                    },
+                    markLine: {
+                        data: [{
+                            type: 'average',
+                            name: '平均值',
+                            itemStyle: {
+                                normal: {
+                                    color: 'green'
+                                }
+                            }
+                        }]
+                    },
+                    // 折线图圆点
+                    label: {
+                        normal: {
+                            show: true,
+                            //position: 'bottom', // 文字位置
+                            // 显示的文字
+                            formatter: '{c}',
+                            textStyle: {
+                                color: '#000' // 文字颜色
+                            }
+                        }
+                    },
+                    itemStyle: {
+                        normal: {
+                            color: '#79FF79'
+                        }
+                    }
+                    
+                }
+            ]
+        };
+        lineChart.setOption(lineOption);
+
+
+
+
+        table.render({
+            elem: '#empTable',
+            height: 700,
+            url: baseUrl + '/sidan/finance/project/list', //数据接口
+            page: true, //开启分页
+            limit: 15,
+            cols: [
+                [//表头
+                    {field: 'name', title: '员工姓名', width: '16.66%'},
+                    {field: 'workType', title: '工种', width: '16.66%'},
+                    {field: 'salary', title: '支款', width: '16.66%', sort: true}, 
+                    {field: 'salary', title: '扣除', width: '16.66%', sort: true},
+                    {field: 'salary', title: '工资', width: '16.66%', sort: true},
+                    {field: 'date', title: '日期', width: '16.95%', sort: true}
+                ]   
+            ],
+            where:{
+                // projectName: $('#projectName').val(),
+                // startDate: $('#searchDate').val()
+            }
+        });
+
+        table.render({
+            elem: '#matTable',
+            height: 700,
+            url: baseUrl + '/sidan/finance/project/list', //数据接口
+            page: true, //开启分页
+            limit: 15,
+            cols: [
+                [//表头
+                    {field: 'name', title: '材料名称', width: '16.66%'},
+                    {field: 'type', title: '类型', width: '16.66%'},
+                    {field: 'salary', title: '支款', width: '16.66%', sort: true}, 
+                    {field: 'salary', title: '扣除', width: '16.66%', sort: true},
+                    {field: 'salary', title: '工资', width: '16.66%', sort: true},
+                    {field: 'date', title: '日期', width: '16.95%', sort: true}
+                ]   
+            ],
+            where:{
+                // projectName: $('#projectName').val(),
+                // startDate: $('#searchDate').val()
+            }
+        });
+
+
+        //a target 平滑过渡效果
+        $('.layui-tab-title li').click(function(){
+            $('html, body').animate({scrollTop: $('#anchor').offset().top}, 300)//重要的是这句根据需求替换Id
+        })
+    });
+    
+
+</script>
+</html>

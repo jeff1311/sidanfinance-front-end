@@ -30,7 +30,7 @@
 <script src="/js/jquery-3.4.1.min.js"></script>
 <script src="/layui/layui.js"></script>
 <script type="text/html" id="feeBar">
-    <a class="layui-btn layui-btn-xs btn-blue" href="https://www.baidu.com">明细</a>
+    <a class="layui-btn layui-btn-xs btn-blue" lay-event="cost-detail">明细</a>
 </script>
 <script type="text/html" id="actBar">
     <a class="layui-btn layui-btn-xs" lay-event="edit" class="edit">编辑</a>
@@ -203,6 +203,9 @@
                             },1);
                         }
                     }); 
+                    break;
+                case 'cost-detail':
+                    location.href = '/html/cost-detail.html';
                     break;
             };
         });

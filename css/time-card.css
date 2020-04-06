@@ -1,6 +1,9 @@
 @import url(common/common.css);
 @import url(common/margin.css);
 @import url(../layui/css/layui.css);
+html {
+  overflow-x: hidden;
+}
 body {
   padding: 1rem 1rem;
 }
@@ -37,15 +40,6 @@ body {
   cursor: default;
   color: #666;
   border-bottom: none !important;
-}
-.row-gap {
-  margin: -5px -5px !important;
-}
-.row-gap * {
-  box-sizing: border-box !important;
-}
-.col-gap {
-  padding: 5px 5px !important;
 }
 .calendar-table tr td:first-child {
   background-color: #f2f2f2;
@@ -165,8 +159,10 @@ body {
   border: none;
   color: #666;
   text-indent: 15px;
-  overflow: hidden;
   cursor: pointer;
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
   -moz-appearance: textfield;
 }
 .input-full input:hover {
