@@ -13,12 +13,20 @@ body {
   display: flex;
   margin-left: auto;
 }
-.btn-blue {
-  background-color: #13a3e9;
-}
 .search-date {
   display: flex;
 }
 .search-date input {
   width: 274px !important;
+}
+#pie {
+  width: 100%;
+  height: 350px;
+}
+#line {
+  width: 100%;
+  height: 350px;
+}
+.layui-tab-content {
+  padding: 0 !important;
 }

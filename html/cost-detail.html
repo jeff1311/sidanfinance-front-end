@@ -20,10 +20,10 @@
 
     <div class="layui-row row-gap">
         <div class="layui-col-md3 col-gap">
-            <div id="pie" style="width: 100%;height:350px;"></div>
+            <div id="pie"></div>
         </div>
         <div class="layui-col-md9 col-gap">
-            <div id="line" style="width: 100%;height:350px;"></div>
+            <div id="line"></div>
         </div>
     </div>
 
@@ -37,9 +37,25 @@
             <a id="anchor"></a>
             <div class="layui-tab-content">
               <div class="layui-tab-item layui-show">
+                  <div class="layui-row mt-1">
+                      <div class="layui-col-md2 mr-1">
+                          <input type="text" autocomplete="off" class="layui-input" placeholder="人员姓名" id="projectName">
+                      </div>
+                      <div class="layui-col-md1">
+                          <button class="layui-btn layui-btn-primary" id="search">查询</button>
+                      </div>
+                  </div>
                 <table id="empTable" lay-filter="table-filter"></table>
               </div>
               <div class="layui-tab-item">
+                <div class="layui-row mt-1">
+                    <div class="layui-col-md2 mr-1">
+                        <input type="text" autocomplete="off" class="layui-input" placeholder="材料名称" id="projectName">
+                    </div>
+                    <div class="layui-col-md1">
+                        <button class="layui-btn layui-btn-primary" id="search">查询</button>
+                    </div>
+                </div>
                 <table id="matTable" lay-filter="table-filter"></table>
               </div>
             </div>
@@ -284,15 +300,16 @@
             height: 700,
             url: baseUrl + '/sidan/finance/project/list', //数据接口
             page: true, //开启分页
-            limit: 15,
+            limit: 20,
+            cellMinWidth: 200,//单元格最小宽度
             cols: [
                 [//表头
-                    {field: 'name', title: '员工姓名', width: '16.66%'},
-                    {field: 'workType', title: '工种', width: '16.66%'},
-                    {field: 'salary', title: '支款', width: '16.66%', sort: true}, 
-                    {field: 'salary', title: '扣除', width: '16.66%', sort: true},
-                    {field: 'salary', title: '工资', width: '16.66%', sort: true},
-                    {field: 'date', title: '日期', width: '16.95%', sort: true}
+                    {field: 'name', title: '员工姓名'},
+                    {field: 'workType', title: '工种'},
+                    {field: 'salary', title: '支款', sort: true}, 
+                    {field: 'salary', title: '扣除', sort: true},
+                    {field: 'salary', title: '工资', sort: true},
+                    {field: 'date', title: '日期', sort: true}
                 ]   
             ],
             where:{
@@ -306,15 +323,16 @@
             height: 700,
             url: baseUrl + '/sidan/finance/project/list', //数据接口
             page: true, //开启分页
-            limit: 15,
+            limit: 20,
+            cellMinWidth: 200,//单元格最小宽度
             cols: [
                 [//表头
-                    {field: 'name', title: '材料名称', width: '16.66%'},
-                    {field: 'type', title: '类型', width: '16.66%'},
-                    {field: 'salary', title: '支款', width: '16.66%', sort: true}, 
-                    {field: 'salary', title: '扣除', width: '16.66%', sort: true},
-                    {field: 'salary', title: '工资', width: '16.66%', sort: true},
-                    {field: 'date', title: '日期', width: '16.95%', sort: true}
+                    {field: 'name', title: '材料名称'},
+                    {field: 'type', title: '类型'},
+                    {field: 'salary', title: '支款', sort: true}, 
+                    {field: 'salary', title: '扣除', sort: true},
+                    {field: 'salary', title: '工资', sort: true},
+                    {field: 'date', title: '日期', sort: true}
                 ]   
             ],
             where:{

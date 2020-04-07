@@ -30,7 +30,7 @@
 <script src="/js/jquery-3.4.1.min.js"></script>
 <script src="/layui/layui.js"></script>
 <script type="text/html" id="feeBar">
-    <a class="layui-btn layui-btn-xs btn-blue" lay-event="cost-detail">明细</a>
+    <a class="layui-btn layui-btn-xs layui-btn-primary" lay-event="cost-detail">明细</a>
 </script>
 <script type="text/html" id="actBar">
     <a class="layui-btn layui-btn-xs" lay-event="edit" class="edit">编辑</a>
@@ -101,8 +101,8 @@
                         {field: 'endDate', title: '项目竣工时间', width: 120, sort: true, templet:'<div>{{d.endDate}}</div>'},
                         {field: 'months', title: '历时（月）', width: 110, sort: true},
                         {field: 'totalPrice', title: '￥合同总价', width: 110, sort: true},
-                        {fixed: 'right', title:'成本', toolbar: '#feeBar', width:65},
-                        {fixed: 'right', title:'操作', toolbar: '#actBar', width:113}
+                        {fixed: 'right', title:'成本', toolbar: '#feeBar', width:66},
+                        {fixed: 'right', title:'操作', toolbar: '#actBar', width:112}
                     ]   
                 ],
                 where:{
