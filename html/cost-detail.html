@@ -384,6 +384,9 @@
             $('html, body').animate({scrollTop: $('#anchor').offset().top}, 300)//重要的是这句根据需求替换Id
         })
 
+
+
+        var selectedEmpIds = new Set();
         $('#add-e').on('click',function(){
             var data = getEmpList();
             console.log(data);
@@ -468,11 +471,12 @@
             var data = getEmpList();
             var html = '';
             for (const emp of data.list) {
+                var disabled = selectedEmpIds.has(emp.id) ? 'layui-disabled' : '';
                 html += [
                             '<li>',
                                 '<span>' + emp.name + '</span>',
                                 '<span>' + emp.typeName + '</span>',
-                                '<a class="layui-btn layui-btn-xs layui-btn-primary" id="emp_id_' + emp.id + '" onclick="layui.selectEmp(this,' + emp.id + ',\'' + emp.name + '\')">选中</a>',
+                                '<a class="layui-btn layui-btn-xs layui-btn-primary ' + disabled + '" id="emp_btn_' + emp.id + '" onclick="layui.selectEmp(this,' + emp.id + ',\'' + emp.name + '\')">选中</a>',
                             '</div>'
                 ].join('');
             }
@@ -481,12 +485,14 @@
         
         layui.selectEmp = function(that,id,name){
             if(!$(that).hasClass('layui-disabled')){
+                selectedEmpIds.add(id);
                 $(that).addClass('layui-disabled');
                 var html = '<div class="layui-col-md2 col-gap" id="emp_selected_' + id + '"><div><span>' + name + '</span><i class="layui-icon" onclick="layui.removeEmp(this,' + id + ')">&#x1006;</i></div></div>';
                 $('#emp-list-selected').append(html);
             }
         }
         layui.removeEmp = function(that,id){
+            selectedEmpIds.delete(id);
             $('#emp_btn_' + id).removeClass('layui-disabled');
             $('#emp_selected_' + id).remove();
         }
