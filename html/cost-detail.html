@@ -110,6 +110,8 @@
         var table = layui.table;
         var form = layui.form;
         var laytpl = layui.laytpl;
+
+        var projectId = getParamFromUrl('projectId');
         
         var pieChart = echarts.init(document.getElementById('pie'));
         pieOption = {
@@ -335,7 +337,7 @@
         table.render({
             elem: '#empTable',
             height: 700,
-            url: baseUrl + '/sidan/finance/project/list', //数据接口
+            url: baseUrl + '/sidan/finance/project/cost/employee/list', //数据接口
             page: true, //开启分页
             limit: 20,
             cellMinWidth: 200,//单元格最小宽度
@@ -350,8 +352,10 @@
                 ]   
             ],
             where:{
-                // projectName: $('#projectName').val(),
-                // startDate: $('#searchDate').val()
+                projectId: projectId
+            },
+            done : function(res, curr, count){
+                console.log(res);
             }
         });
 
@@ -432,7 +436,7 @@
                     url: baseUrl + '/sidan/finance/project/cost/employee/add',
                     type: 'post',
                     data: {
-                        projectId: getParamFromUrl('projectId'),
+                        projectId: projectId,
                         empIds: empIds
                     },
                     dataType: 'json',
