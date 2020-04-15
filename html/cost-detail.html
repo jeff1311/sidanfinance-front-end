@@ -84,7 +84,8 @@
                     <li>
                         <span>{{ emp.name }}</span>
                         <span>{{ emp.typeName }} </span>
-                        <a class="layui-btn layui-btn-xs layui-btn-primary" id="emp_btn_{{ emp.id }}" onclick="layui.selectEmp(this,{{ emp.id }},'{{ emp.name }}')">选中</a>
+                        {{# var disabled = d.selectedEmpIds.has(emp.id) ? 'layui-disabled' : ''; }}
+                        <a class="layui-btn layui-btn-xs layui-btn-primary {{ disabled }}" id="emp_btn_{{ emp.id }}" onclick="layui.selectEmp(this,{{ emp.id }},'{{ emp.name }}')">选中</a>
                     </li>
                 {{# } }}
             </ul>
@@ -334,6 +335,8 @@
 
 
 
+        var selectedEmpIds = new Set();
+
         table.render({
             elem: '#empTable',
             height: 700,
@@ -355,7 +358,10 @@
                 projectId: projectId
             },
             done : function(res, curr, count){
-                console.log(res);
+                for (const emp of res.data) {
+                    selectedEmpIds.add(emp.id);
+                }
+                console.log(selectedEmpIds);
             }
         });
 
@@ -390,10 +396,11 @@
 
 
 
-        var selectedEmpIds = new Set();
+        
         $('#add-e').on('click',function(){
             var data = getEmpList();
             console.log(data);
+            data.selectedEmpIds = selectedEmpIds;
             //同步方式
             var tpl = laytpl($('#eList-tpl').html());
             var html = tpl.render(data);
