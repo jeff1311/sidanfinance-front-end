@@ -27,7 +27,7 @@
 <script src="/js/jquery-3.4.1.min.js"></script>
 <script src="/layui/layui.js"></script>
 <script type="text/html" id="timeCard">
-    <a class="layui-btn layui-btn-xs layui-btn-primary" href="/html/time-card-projects.html">明细</a>
+    <a class="layui-btn layui-btn-xs layui-btn-primary" lay-event="detail">明细</a>
 </script>
 <script type="text/html" id="actBar">
     <a class="layui-btn layui-btn-xs" lay-event="edit" class="edit">编辑</a>
@@ -129,9 +129,12 @@
 
         //监听事件
         table.on('tool(table-filter)', function(obj){
-            console.log(obj);
+            console.log(obj.data);
             // var checkStatus = table.checkStatus(obj.config.id);
             switch(obj.event){
+                case 'detail':
+                    window.location.href = '/html/time-card-projects.html?empId=' + obj.data.id + '&empName=' + obj.data.name + '&empType=' + obj.data.type + '&empTypeName=' + obj.data.typeName;
+                    break;
                 case 'add':
                     layer.msg('添加');
                     break;

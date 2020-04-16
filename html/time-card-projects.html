@@ -7,87 +7,85 @@
     <link rel="stylesheet" href="/css/time-card.css">
 </head>
 <body>
-    <div class="layui-card">
-        <div class="layui-card-header name">项目列表 - 张三 - 水电工</div>
+    <div class="layui-card title">
+        <div class="layui-card-header name" id="title"></div>
+        <button class="layui-btn layui-btn-primary" onclick="history.go(-1)">返回</button>
     </div>
 
-    <div class="layui-row row-gap">
-
-      <div class="layui-col-md6 col-gap">
-        <a href="/html/time-card.html">
-          <div class="layui-card">
-            <div class="layui-card-header">
-              <span>无锡金科钱桥集美壹品全项目批量精装修工程</span>
-              <span>2020-01-01 ~ 2020-02-01</span>
-            </div>
-            <div class="layui-card-body layui-row">
-              <div class="layui-col-md4">
-                项目编号：131001-1
-              </div>  
-              <div class="layui-col-md4">
-                合同总价：￥10000.00
-              </div>
-              <div class="layui-col-md4" title="甲方名称：南通中州置业有限公司ASDFASASDF沙发斯蒂芬">
-                甲方名称：南通中州置业有限公司ASDFASASDF沙发斯蒂芬
-              </div>
-            </div>
-          </div>
-        </a>
-      </div>
-      
-      <div class="layui-col-md6 col-gap">
-        <a href="/html/time-card.html">
-          <div class="layui-card">
-            <div class="layui-card-header">
-              <span>徐州万科玉带路项目精装修工程（二标段）</span>
-              <span>2020-01-01 ~ 2020-02-01</span>
-            </div>
-            <div class="layui-card-body layui-row">
-              <div class="layui-col-md4">
-                项目编号：131001-1
-              </div>  
-              <div class="layui-col-md4">
-                合同总价：￥10000.00
-              </div>
-              <div class="layui-col-md4">
-                甲方名称：南通中州置业有限公司
-              </div>
-            </div>
-          </div>
-        </a>
-      </div>
-
-      <div class="layui-col-md6 col-gap">
-        <a href="/html/time-card.html">
-          <div class="layui-card">
-            <div class="layui-card-header">
-              <span>徐州万科B6项目（二标段）室内及公共部位精装修工程</span>
-              <span>2020-01-01 ~ 2020-02-01</span>
-            </div>
-            <div class="layui-card-body layui-row">
-              <div class="layui-col-md4">
-                项目编号：131001-1
-              </div>  
-              <div class="layui-col-md4">
-                合同总价：￥10000.00
-              </div>
-              <div class="layui-col-md4">
-                甲方名称：南通中州置业有限公司
-              </div>
-            </div>
-          </div>
-        </a>
-      </div>
-
-    </div>
+    <div class="layui-row row-gap" id="project-list"></div>
 
 </body>
+<script type="text/html" id="project-tpl">
+
+  {{# var uri = d.empType == 5 ? '/html/time-card.html' : '/html/time-card-task.html'; }}
+  {{# for (const project of d.list) { }}
+    <div class="layui-col-md6 col-gap">
+      <a href="{{ uri }}?employeeId={{project.employeeId}}&employeeName={{project.employeeName}}&employeeType={{d.empTypeName}}&projectName={{project.projectName}}">
+        <div class="layui-card">
+          <div class="layui-card-header">
+            <span>{{ project.projectName }}</span>
+            <span>{{ project.startDate }} ~ {{ project.endDate }}</span>
+          </div>
+          <div class="layui-card-body layui-row">
+            <div class="layui-col-md4">
+              项目编号：{{ project.projectNo }}
+            </div>  
+            <div class="layui-col-md4">
+              合同总价：￥{{ project.totalPrice }}
+            </div>
+            <div class="layui-col-md4" title="{{ project.companyName }}">
+              甲方名称：{{ project.companyName }}
+            </div>
+          </div>
+        </div>
+      </a>
+    </div>
+  {{# } }}
+
+</script>
 <script src="/js/config.js"></script>
+<script src="/js/common.js"></script>
 <script src="/js/jquery-3.4.1.min.js"></script>
 <script src="/layui/layui.js"></script>
 <script>
 
+  
+  layui.use(['layer','laytpl'],function(){
+    var layer = layui.layer;
+    var laytpl = layui.laytpl;
+    
+    render();
 
+    function render(){
+      var empName = getParamFromUrl("empName");
+      var empType = getParamFromUrl("empType");
+      var empTypeName = getParamFromUrl("empTypeName");
+      $('#title').text('项目列表 - ' + empName + ' - ' + empTypeName);
+
+      $.ajax({
+        url: baseUrl + '/sidan/finance/employee/list/project',
+        type: 'get',
+        data: {
+          employeeId: getParamFromUrl("empId")
+        },
+        dataType: 'json',
+        success: function(json){
+          console.log(json);
+          if(json.code == 0){
+            var tpl = $('#project-tpl').html();
+            json.empType = empType;
+            json.empTypeName = empTypeName;
+            laytpl(tpl).render(json,function(html){
+              $('#project-list').html(html);
+            });
+          }else{
+            layer.msg(json.msg);
+          }
+        }
+      })
+    }
+
+  });
 
 </script>
 </html>
