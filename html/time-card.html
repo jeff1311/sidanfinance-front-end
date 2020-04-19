@@ -109,7 +109,23 @@
                   <td><input type="number" value="100"></td>
                   <td><input type="number" class="layui-disabled" readonly="readonly"></td>
                 </tr>
-                <tr class="widthdraw">
+                <tr>
+                  <td>奖金</td>
+                  <td><input type="number" value="0"></td>
+                  <td><input type="number" value="0"></td>
+                  <td><input type="number" value="0"></td>
+                  <td><input type="number" value="0"></td>
+                  <td><input type="number" value="0"></td>
+                  <td><input type="number" value="0"></td>
+                  <td><input type="number" value="0"></td>
+                  <td><input type="number" value="0"></td>
+                  <td><input type="number" value="0"></td>
+                  <td><input type="number" value="0"></td>
+                  <td><input type="number" value="0"></td>
+                  <td><input type="number" value="0"></td>
+                  <td><input type="number" class="layui-disabled" readonly="readonly"></td>
+                </tr>
+                <tr>
                   <td>支款</td>
                   <td><input type="number" value="0"></td>
                   <td><input type="number" value="0"></td>
@@ -167,6 +183,35 @@
   
 </script>
 <script type="text/html" id="calendar-month">
+  <table class="layui-table calendar-table-day" id="calendar-table-day">
+    <thead>
+      <tr>
+        <th>日期</th>
+        <th>星期</th>
+        <th>上午</th>
+        <th>下午</th>
+        <th>工时</th>
+      </tr> 
+    </thead>
+    <tbody>
+      {{# for(const day of d.calendar){ }}
+        <tr id="{{ day.date }}">
+          <td>{{ day.day }}</td>
+          <td>{{ day.dayOfWeek }}</td>
+          {{# 
+            var fChecked = day.forenoon == 1 ? 'checked' : ''; 
+            var aChecked = day.afternoon == 1 ? 'checked' : '';
+          }}
+          <td><input type="checkbox" checked="{{ fChecked }}"></td>
+          <td><input type="checkbox" checked="{{ aChecked }}"></td>
+          <td><input type="number" value="{{ day.hour }}"></td>
+        </tr>
+      {{# } }}
+
+    </tbody>
+  </table>
+</script>
+<!-- <script type="text/html" id="calendar-month">
   <table class="layui-table calendar-table-day">
     <thead>
       <tr>
@@ -228,7 +273,7 @@
 
     </tbody>
   </table>
-</script>
+</script> -->
 <script src="/js/config.js"></script>
 <script src="/js/common.js"></script>
 <script src="/js/jquery-3.4.1.min.js"></script>
@@ -238,10 +283,11 @@
   layui.use(['layer','laytpl'], function(){
     var layer = layui.layer; 
     var laytpl = layui.laytpl;
-    var projectName = getParamFromUrl("projectName");
-    var employeeId = getParamFromUrl("employeeId");
-    var employeeName = getParamFromUrl("employeeName");
-    var employeeType = getParamFromUrl("employeeType");
+    var projectId = getParamFromUrl('projectId');
+    var projectName = getParamFromUrl('projectName');
+    var employeeId = getParamFromUrl('employeeId');
+    var employeeName = getParamFromUrl('employeeName');
+    var employeeType = getParamFromUrl('employeeType');
     $('#title').text(employeeName + ' - ' + employeeType + ' - ' + projectName);
 
     render();
@@ -253,22 +299,15 @@
         url: baseUrl + '/sidan/finance/attendance/year',
         type: 'get',
         data: {
+          projectId: projectId,
           employeeId: employeeId
         },
         dataType: 'json',
         async: false,
         success: function(json){
           console.log(json);
-          var years = [];
-          if(json.list.length == 0){
-            var date = new Date();
-            var year = date.getFullYear();
-            years.push(year);
-          }else{
-            years = json.list;
-          }
           var tpl = $('#time-card').html();
-          laytpl(tpl).render(years,function(html){
+          laytpl(tpl).render(json.list,function(html){
             $('#time-card-list').html(html);
           });
           
@@ -290,6 +329,7 @@
           },
           dataType: 'json',
           success: function(json){
+            console.log(json);
             if(json.code == 0){
               var tpl = $('#calendar-month').html();
               json.index = 0;
@@ -297,12 +337,46 @@
                 layer.closeAll();
                 layer.open({
                   type: 1,
-                  title: year + '-' + month,
+                  title: '考勤表：' + year + '/' + month,
                   shadeClose: true,
                   shade: false,
                   resize: false,
-                  area: '700px',
-                  content: html
+                  area: '500px',
+                  content: html,
+                  cancel: function(){
+                    var rows = $('.calendar-table-day tbody tr');
+                    console.log(rows);
+                    var days = [];
+                    for (const row of rows) {
+                      var date = $(row).attr('id');
+                      var forenoon = $(row).find('input')[0];
+                      var afternoon = $(row).find('input')[1];
+                      var hour = $(row).find('input')[2];
+                      var day = {
+                        date: date,
+                        forenoon: forenoon.checked,
+                        afternoon: afternoon.checked,
+                        hour: hour.value
+                      }
+                      days.push(day);
+                    }
+                    console.log(days);
+                    $.ajax({
+                      url: baseUrl + '/sidan/finance/attendance/calendar/update',
+                      type: 'post',
+                      data: {
+                        projectId: projectId,
+                        employeeId: employeeId,
+                        days: JSON.stringify(days)
+                      },
+                      dateType: 'json',
+                      success: function(json){
+                        console.log(json);
+                      }
+                    });
+
+                  }
+                  
                 });
               });
   
@@ -325,8 +399,9 @@
       var day = $(parent).find('tr')[0].children[month].children[0];
       var hour =  $(parent).find('tr')[1].children[month].children[0];
       var wage =  $(parent).find('tr')[2].children[month].children[0];
-      var withdraw =  $(parent).find('tr')[3].children[month].children[0];
-      var salary =  $(parent).find('tr')[4].children[month].children[0];
+      var bonus =  $(parent).find('tr')[3].children[month].children[0];
+      var withdraw =  $(parent).find('tr')[4].children[month].children[0];
+      var salary =  $(parent).find('tr')[5].children[month].children[0];
 
       var totalSalary =  $(parent).find('tr')[4].children[13].children[0];
       
@@ -337,8 +412,10 @@
         $(currentSum).val(sum(row_sum));
       }
 
-      var amount = hour.value / 8 * wage.value - withdraw.value;
-      $(salary).val(amount);
+      console.log(bonus.value);
+      //（工时/6+工日）*工价
+      var amount = (Number(hour.value) / 6 + Number(day.value)) * Number(wage.value) + Number(bonus.value) - Number(withdraw.value);
+      $(salary).val(amount.toFixed(2));
       
       var row_salary = $(parent).find('tr')[4].children;
       $(totalSalary).val(sum(row_salary));

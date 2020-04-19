@@ -20,7 +20,7 @@
   {{# var uri = d.empType == 5 ? '/html/time-card.html' : '/html/time-card-task.html'; }}
   {{# for (const project of d.list) { }}
     <div class="layui-col-md6 col-gap">
-      <a href="{{ uri }}?employeeId={{project.employeeId}}&employeeName={{project.employeeName}}&employeeType={{d.empTypeName}}&projectName={{project.projectName}}">
+      <a href="{{ uri }}?employeeId={{project.employeeId}}&employeeName={{project.employeeName}}&employeeType={{d.empTypeName}}&projectId={{project.projectId}}&projectName={{project.projectName}}">
         <div class="layui-card">
           <div class="layui-card-header">
             <span>{{ project.projectName }}</span>
