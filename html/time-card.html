@@ -40,7 +40,23 @@
 
 </script>
 <script type="text/html" id="time-card-content">
-  <table class="layui-table calendar-table" id="year-{{ d.year }}">
+  {{# 
+    var days = 0;
+    var hours = 0;
+    var bonus = 0;
+    var withdraw = 0;
+    var amount = 0;
+    var actualAmount = 0;
+    for(const m of d){
+      days += m.day;
+      hours += m.hour;
+      bonus += m.bonus;
+      withdraw += m.withdraw;
+      amount += m.amount;
+      actualAmount += m.actualAmount;
+    }
+  }}
+  <table class="layui-table calendar-table" id="year-{{ d[0].year }}">
       <colgroup>
         <col width="100">
         <col width="100">
@@ -78,115 +94,115 @@
       <tbody>
         <tr>
           <td>工日</td>
-          <td><input type="number" class="layui-disabled" readonly="readonly" value="1"></td>
-          <td><input type="number" class="layui-disabled" readonly="readonly" value="0"></td>
-          <td><input type="number" class="layui-disabled" readonly="readonly" value="0"></td>
-          <td><input type="number" class="layui-disabled" readonly="readonly" value="0"></td>
-          <td><input type="number" class="layui-disabled" readonly="readonly" value="0"></td>
-          <td><input type="number" class="layui-disabled" readonly="readonly" value="0"></td>
-          <td><input type="number" class="layui-disabled" readonly="readonly" value="0"></td>
-          <td><input type="number" class="layui-disabled" readonly="readonly" value="0"></td>
-          <td><input type="number" class="layui-disabled" readonly="readonly" value="0"></td>
-          <td><input type="number" class="layui-disabled" readonly="readonly" value="0"></td>
-          <td><input type="number" class="layui-disabled" readonly="readonly" value="0"></td>
-          <td><input type="number" class="layui-disabled" readonly="readonly" value="0"></td>
-          <td><input type="number" class="layui-disabled" readonly="readonly" value="0"></td>
+          <td><input type="number" class="layui-disabled" readonly="readonly" value="{{ d[0].day }}"></td>
+          <td><input type="number" class="layui-disabled" readonly="readonly" value="{{ d[1].day }}"></td>
+          <td><input type="number" class="layui-disabled" readonly="readonly" value="{{ d[2].day }}"></td>
+          <td><input type="number" class="layui-disabled" readonly="readonly" value="{{ d[3].day }}"></td>
+          <td><input type="number" class="layui-disabled" readonly="readonly" value="{{ d[4].day }}"></td>
+          <td><input type="number" class="layui-disabled" readonly="readonly" value="{{ d[5].day }}"></td>
+          <td><input type="number" class="layui-disabled" readonly="readonly" value="{{ d[6].day }}"></td>
+          <td><input type="number" class="layui-disabled" readonly="readonly" value="{{ d[7].day }}"></td>
+          <td><input type="number" class="layui-disabled" readonly="readonly" value="{{ d[8].day }}"></td>
+          <td><input type="number" class="layui-disabled" readonly="readonly" value="{{ d[9].day }}"></td>
+          <td><input type="number" class="layui-disabled" readonly="readonly" value="{{ d[10].day }}"></td>
+          <td><input type="number" class="layui-disabled" readonly="readonly" value="{{ d[11].day }}"></td>
+          <td><input type="number" class="layui-disabled" readonly="readonly" value="{{ days }}"></td>
         </tr>
         <tr>
           <td>工时</td>
-          <td><input type="number" class="layui-disabled" readonly="readonly" value="8"></td>
-          <td><input type="number" class="layui-disabled" readonly="readonly" value="0"></td>
-          <td><input type="number" class="layui-disabled" readonly="readonly" value="0"></td>
-          <td><input type="number" class="layui-disabled" readonly="readonly" value="0"></td>
-          <td><input type="number" class="layui-disabled" readonly="readonly" value="0"></td>
-          <td><input type="number" class="layui-disabled" readonly="readonly" value="0"></td>
-          <td><input type="number" class="layui-disabled" readonly="readonly" value="0"></td>
-          <td><input type="number" class="layui-disabled" readonly="readonly" value="0"></td>
-          <td><input type="number" class="layui-disabled" readonly="readonly" value="0"></td>
-          <td><input type="number" class="layui-disabled" readonly="readonly" value="0"></td>
-          <td><input type="number" class="layui-disabled" readonly="readonly" value="0"></td>
-          <td><input type="number" class="layui-disabled" readonly="readonly" value="0"></td>
-          <td><input type="number" class="layui-disabled" readonly="readonly" value="0"></td>
+          <td><input type="number" class="layui-disabled" readonly="readonly" value="{{ d[0].hour }}"></td>
+          <td><input type="number" class="layui-disabled" readonly="readonly" value="{{ d[1].hour }}"></td>
+          <td><input type="number" class="layui-disabled" readonly="readonly" value="{{ d[2].hour }}"></td>
+          <td><input type="number" class="layui-disabled" readonly="readonly" value="{{ d[3].hour }}"></td>
+          <td><input type="number" class="layui-disabled" readonly="readonly" value="{{ d[4].hour }}"></td>
+          <td><input type="number" class="layui-disabled" readonly="readonly" value="{{ d[5].hour }}"></td>
+          <td><input type="number" class="layui-disabled" readonly="readonly" value="{{ d[6].hour }}"></td>
+          <td><input type="number" class="layui-disabled" readonly="readonly" value="{{ d[7].hour }}"></td>
+          <td><input type="number" class="layui-disabled" readonly="readonly" value="{{ d[8].hour }}"></td>
+          <td><input type="number" class="layui-disabled" readonly="readonly" value="{{ d[9].hour }}"></td>
+          <td><input type="number" class="layui-disabled" readonly="readonly" value="{{ d[10].hour }}"></td>
+          <td><input type="number" class="layui-disabled" readonly="readonly" value="{{ d[11].hour }}"></td>
+          <td><input type="number" class="layui-disabled" readonly="readonly" value="{{ hours }}"></td>
         </tr>
-        <tr class="wages">
+        <tr class="price">
           <td>工价</td>
-          <td><input type="number" value="100"></td>
-          <td><input type="number" value="100"></td>
-          <td><input type="number" value="100"></td>
-          <td><input type="number" value="100"></td>
-          <td><input type="number" value="100"></td>
-          <td><input type="number" value="100"></td>
-          <td><input type="number" value="100"></td>
-          <td><input type="number" value="100"></td>
-          <td><input type="number" value="100"></td>
-          <td><input type="number" value="100"></td>
-          <td><input type="number" value="100"></td>
-          <td><input type="number" value="100"></td>
+          <td><input type="number" value="{{ d[0].price }}"></td>
+          <td><input type="number" value="{{ d[1].price }}"></td>
+          <td><input type="number" value="{{ d[2].price }}"></td>
+          <td><input type="number" value="{{ d[3].price }}"></td>
+          <td><input type="number" value="{{ d[4].price }}"></td>
+          <td><input type="number" value="{{ d[5].price }}"></td>
+          <td><input type="number" value="{{ d[6].price }}"></td>
+          <td><input type="number" value="{{ d[7].price }}"></td>
+          <td><input type="number" value="{{ d[8].price }}"></td>
+          <td><input type="number" value="{{ d[9].price }}"></td>
+          <td><input type="number" value="{{ d[10].price }}"></td>
+          <td><input type="number" value="{{ d[11].price }}"></td>
           <td><input type="number" class="layui-disabled" readonly="readonly"></td>
         </tr>
         <tr>
           <td>奖金</td>
-          <td><input type="number" value="0"></td>
-          <td><input type="number" value="0"></td>
-          <td><input type="number" value="0"></td>
-          <td><input type="number" value="0"></td>
-          <td><input type="number" value="0"></td>
-          <td><input type="number" value="0"></td>
-          <td><input type="number" value="0"></td>
-          <td><input type="number" value="0"></td>
-          <td><input type="number" value="0"></td>
-          <td><input type="number" value="0"></td>
-          <td><input type="number" value="0"></td>
-          <td><input type="number" value="0"></td>
-          <td><input type="number" class="layui-disabled" readonly="readonly"></td>
+          <td><input type="number" value="{{ d[0].bonus }}"></td>
+          <td><input type="number" value="{{ d[1].bonus }}"></td>
+          <td><input type="number" value="{{ d[2].bonus }}"></td>
+          <td><input type="number" value="{{ d[3].bonus }}"></td>
+          <td><input type="number" value="{{ d[4].bonus }}"></td>
+          <td><input type="number" value="{{ d[5].bonus }}"></td>
+          <td><input type="number" value="{{ d[6].bonus }}"></td>
+          <td><input type="number" value="{{ d[7].bonus }}"></td>
+          <td><input type="number" value="{{ d[8].bonus }}"></td>
+          <td><input type="number" value="{{ d[9].bonus }}"></td>
+          <td><input type="number" value="{{ d[10].bonus }}"></td>
+          <td><input type="number" value="{{ d[11].bonus }}"></td>
+          <td><input type="number" class="layui-disabled" readonly="readonly" value="{{ bonus }}"></td>
         </tr>
         <tr>
           <td>支款</td>
-          <td><input type="number" value="0"></td>
-          <td><input type="number" value="0"></td>
-          <td><input type="number" value="0"></td>
-          <td><input type="number" value="0"></td>
-          <td><input type="number" value="0"></td>
-          <td><input type="number" value="0"></td>
-          <td><input type="number" value="0"></td>
-          <td><input type="number" value="0"></td>
-          <td><input type="number" value="0"></td>
-          <td><input type="number" value="0"></td>
-          <td><input type="number" value="0"></td>
-          <td><input type="number" value="0"></td>
-          <td><input type="number" class="layui-disabled" readonly="readonly"></td>
+          <td><input type="number" value="{{ d[0].withdraw }}"></td>
+          <td><input type="number" value="{{ d[1].withdraw }}"></td>
+          <td><input type="number" value="{{ d[2].withdraw }}"></td>
+          <td><input type="number" value="{{ d[3].withdraw }}"></td>
+          <td><input type="number" value="{{ d[4].withdraw }}"></td>
+          <td><input type="number" value="{{ d[5].withdraw }}"></td>
+          <td><input type="number" value="{{ d[6].withdraw }}"></td>
+          <td><input type="number" value="{{ d[7].withdraw }}"></td>
+          <td><input type="number" value="{{ d[8].withdraw }}"></td>
+          <td><input type="number" value="{{ d[9].withdraw }}"></td>
+          <td><input type="number" value="{{ d[10].withdraw }}"></td>
+          <td><input type="number" value="{{ d[11].withdraw }}"></td>
+          <td><input type="number" class="layui-disabled" readonly="readonly" value="{{ withdraw }}"></td>
         </tr>
         <tr>
           <td>应发工资</td>
-          <td><input type="number" class="layui-disabled" readonly="readonly" value="0"></td>
-          <td><input type="number" class="layui-disabled" readonly="readonly" value="0"></td>
-          <td><input type="number" class="layui-disabled" readonly="readonly" value="0"></td>
-          <td><input type="number" class="layui-disabled" readonly="readonly" value="0"></td>
-          <td><input type="number" class="layui-disabled" readonly="readonly" value="0"></td>
-          <td><input type="number" class="layui-disabled" readonly="readonly" value="0"></td>
-          <td><input type="number" class="layui-disabled" readonly="readonly" value="0"></td>
-          <td><input type="number" class="layui-disabled" readonly="readonly" value="0"></td>
-          <td><input type="number" class="layui-disabled" readonly="readonly" value="0"></td>
-          <td><input type="number" class="layui-disabled" readonly="readonly" value="0"></td>
-          <td><input type="number" class="layui-disabled" readonly="readonly" value="0"></td>
-          <td><input type="number" class="layui-disabled" readonly="readonly" value="0"></td>
-          <td><input type="number" class="layui-disabled" readonly="readonly" value="0"></td>
+          <td><input type="number" class="layui-disabled" readonly="readonly" value="{{ d[0].amount }}"></td>
+          <td><input type="number" class="layui-disabled" readonly="readonly" value="{{ d[1].amount }}"></td>
+          <td><input type="number" class="layui-disabled" readonly="readonly" value="{{ d[2].amount }}"></td>
+          <td><input type="number" class="layui-disabled" readonly="readonly" value="{{ d[3].amount }}"></td>
+          <td><input type="number" class="layui-disabled" readonly="readonly" value="{{ d[4].amount }}"></td>
+          <td><input type="number" class="layui-disabled" readonly="readonly" value="{{ d[5].amount }}"></td>
+          <td><input type="number" class="layui-disabled" readonly="readonly" value="{{ d[6].amount }}"></td>
+          <td><input type="number" class="layui-disabled" readonly="readonly" value="{{ d[7].amount }}"></td>
+          <td><input type="number" class="layui-disabled" readonly="readonly" value="{{ d[8].amount }}"></td>
+          <td><input type="number" class="layui-disabled" readonly="readonly" value="{{ d[9].amount }}"></td>
+          <td><input type="number" class="layui-disabled" readonly="readonly" value="{{ d[10].amount }}"></td>
+          <td><input type="number" class="layui-disabled" readonly="readonly" value="{{ d[11].amount }}"></td>
+          <td><input type="number" class="layui-disabled" readonly="readonly" value="{{ amount }}"></td>
         </tr>
         <tr>
           <td>实发工资</td>
-          <td><input type="number"></td>
-          <td><input type="number"></td>
-          <td><input type="number"></td>
-          <td><input type="number"></td>
-          <td><input type="number"></td>
-          <td><input type="number"></td>
-          <td><input type="number"></td>
-          <td><input type="number"></td>
-          <td><input type="number"></td>
-          <td><input type="number"></td>
-          <td><input type="number"></td>
-          <td><input type="number"></td>
-          <td><input type="number" class="layui-disabled" readonly="readonly"></td>
+          <td><input type="number" value="{{ d[0].actualAmount }}"></td>
+          <td><input type="number" value="{{ d[1].actualAmount }}"></td>
+          <td><input type="number" value="{{ d[2].actualAmount }}"></td>
+          <td><input type="number" value="{{ d[3].actualAmount }}"></td>
+          <td><input type="number" value="{{ d[4].actualAmount }}"></td>
+          <td><input type="number" value="{{ d[5].actualAmount }}"></td>
+          <td><input type="number" value="{{ d[6].actualAmount }}"></td>
+          <td><input type="number" value="{{ d[7].actualAmount }}"></td>
+          <td><input type="number" value="{{ d[8].actualAmount }}"></td>
+          <td><input type="number" value="{{ d[9].actualAmount }}"></td>
+          <td><input type="number" value="{{ d[10].actualAmount }}"></td>
+          <td><input type="number" value="{{ d[11].actualAmount }}"></td>
+          <td><input type="number" class="layui-disabled" readonly="readonly" value="{{ actualAmount }}"></td>
         </tr>
       </tbody>
   </table>
@@ -267,7 +283,10 @@
             $('#time-card-list').html(html);  
           });
           var thisYear = new Date().getFullYear();
-          renderYear(thisYear);
+          var tpl = $('#time-card-content').html();
+          laytpl(tpl).render(json.esList,function(html){
+            $('#tab-content-' + thisYear).html(html);
+          });
         }
       });
 
@@ -293,20 +312,36 @@
         success: function(json){
           layer.closeAll();
           console.log(json);
-          json.year = year;
           var tpl = $('#time-card-content').html();
-          laytpl(tpl).render(json,function(html){
-            $('.layui-show').html(html);
+          laytpl(tpl).render(json.esList,function(html){
+            $('#tab-content-' + year).html(html);
           });
           
         }
       });
 
+      $('.calendar-table thead th').on('click',function(e){
+        attendance(this);
+      });
+
+      $('.calendar-table td input').on('input',function(e){
+        input(this);      
+      });
+
     }
 
+    $('.layui-tab-title li').on('click',function(){
+      var year = this.id.replace('tab-','');
+      renderYear(year);
+    });
+
     $('.calendar-table thead th').on('click',function(e){
-      var year = $(this).parent().parent().parent().attr('id').replace('year-','');
-      var month = $(this).index() < 10 ? '0' + $(this).index() : '' + $(this).index();
+      attendance(this);
+    });
+
+    function attendance(_this){
+      var year = $(_this).parent().parent().parent().attr('id').replace('year-','');
+      var month = $(_this).index() < 10 ? '0' + $(_this).index() : '' + $(_this).index();
       if(month > 0 && month <= 12){
         $.ajax({
           url: baseUrl + '/sidan/finance/attendance/calendar',
@@ -363,6 +398,8 @@
                         data: {
                           projectId: projectId,
                           employeeId: employeeId,
+                          year: year,
+                          month: month,
                           days: JSON.stringify(diffRows)
                         },
                         dataType: 'json',
@@ -372,9 +409,10 @@
                           });
                         },
                         success: function(json){
+                          console.log(json);
                           layer.closeAll();
                           if(json.code == 0){
-                            window.location.reload();
+                            renderYear(year);
                           }else{
                             console.log(json.msg);
                           }
@@ -393,42 +431,71 @@
           }
         });
       }
-      
-    });
-
+    }
 
     $('.calendar-table td input').on('input',function(e){
-      var type = $(this).parent().parent().attr('class');
-      var year = $(this).parent().parent().parent().parent().attr('id').replace('year-','');
-      var month = $(this).parent().index();
+      input(this);      
+    });
 
-      var parent = $(this).parent().parent().parent();
+    function input(_this){
+      var type = $(_this).parent().parent().attr('class');
+      var year = $(_this).parent().parent().parent().parent().attr('id').replace('year-','');
+      var month = $(_this).parent().index();
+
+      var parent = $(_this).parent().parent().parent();
       var day = $(parent).find('tr')[0].children[month].children[0];
       var hour =  $(parent).find('tr')[1].children[month].children[0];
-      var wage =  $(parent).find('tr')[2].children[month].children[0];
+      var price =  $(parent).find('tr')[2].children[month].children[0];
       var bonus =  $(parent).find('tr')[3].children[month].children[0];
       var withdraw =  $(parent).find('tr')[4].children[month].children[0];
       var salary =  $(parent).find('tr')[5].children[month].children[0];
-
-      var totalSalary =  $(parent).find('tr')[4].children[13].children[0];
+      var totalSalary =  $(parent).find('tr')[5].children[13].children[0];
+      var actualAmount = $(parent).find('tr')[6].children[month].children[0];
       
-      if(type != 'wages'){
+      if(type != 'price'){
         //本行求和
-        var row_sum = $(this).parent().parent()[0].children;
-        var currentSum = $(this).parent().parent()[0].children[13].children[0];
+        var row_sum = $(_this).parent().parent()[0].children;
+        var currentSum = $(_this).parent().parent()[0].children[13].children[0];
         $(currentSum).val(sum(row_sum));
       }
 
-      console.log(bonus.value);
       //（工时/6+工日）*工价
-      var amount = (Number(hour.value) / 6 + Number(day.value)) * Number(wage.value) + Number(bonus.value) - Number(withdraw.value);
-      $(salary).val(amount.toFixed(2));
+      var amount = (Number(hour.value) / 6 + Number(day.value)) * Number(price.value) + Number(bonus.value) - Number(withdraw.value);
+      $(salary).val(amount);
       
-      var row_salary = $(parent).find('tr')[4].children;
+      var row_salary = $(parent).find('tr')[5].children;
+      
       $(totalSalary).val(sum(row_salary));
-      
-    });
 
+      $.ajax({
+        url: baseUrl + '/sidan/finance/attendance/salary/update',
+        type: 'post',
+        data: {
+          projectId: projectId,
+          employeeId: employeeId,
+          year: year,
+          month: month,
+          price: price.value,
+          bonus: bonus.value,
+          withdraw: withdraw.value,
+          amount: amount,
+          actualAmount: actualAmount.value
+        },
+        dataType: 'json',
+        beforeSend: function(){
+          layer.load(1, {
+            shade: [0.1,'#fff'] //0.1透明度的白色背景
+          });
+        },
+        success: function(json){
+          layer.closeAll();
+          console.log(json);
+        }
+      });
+
+    }
+
+    //求和
     function sum(tdArray){
       var total = 0;
       for(var i = 1;i < tdArray.length - 1;i ++){
