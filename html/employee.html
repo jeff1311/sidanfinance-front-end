@@ -105,6 +105,9 @@
                 where:{
                     name: $('#name').val(),
                     startDate: $('#searchDate').val()
+                },
+                done: function(json){
+                    console.log(json);
                 }
             });
         }
@@ -129,7 +132,7 @@
 
         //监听事件
         table.on('tool(table-filter)', function(obj){
-            console.log(obj.data);
+            console.log(obj.data.type);
             // var checkStatus = table.checkStatus(obj.config.id);
             switch(obj.event){
                 case 'detail':

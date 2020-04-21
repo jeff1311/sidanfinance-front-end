@@ -461,6 +461,10 @@
 
       //（工时/6+工日）*工价
       var amount = (Number(hour.value) / 6 + Number(day.value)) * Number(price.value) + Number(bonus.value) - Number(withdraw.value);
+      var amountTemp = amount.toString().split('.')
+      if(amountTemp.length > 1 && amountTemp[1].length > 2){
+        amount = amount.toFixed(2);
+      }
       $(salary).val(amount);
       
       var row_salary = $(parent).find('tr')[5].children;

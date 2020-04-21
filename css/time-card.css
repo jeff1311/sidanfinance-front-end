@@ -48,6 +48,10 @@ body {
   color: #666;
   border-bottom: none !important;
 }
+.calendar-table th,
+.calendar-table td {
+  font-size: 12px;
+}
 .calendar-table .layui-disabled {
   color: #666 !important;
 }
